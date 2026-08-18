@@ -28,7 +28,7 @@ export default function Location() {
 
         <div className="mt-12 grid gap-4 lg:grid-cols-[1.05fr_1fr] lg:gap-5">
           {/* Tarjeta de ubicacion */}
-          <div className="card-premium p-6 sm:p-7" data-reveal="left">
+          <div className="card-premium p-5 sm:p-7" data-reveal="left">
             <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-electric-500/10 text-electric-300">
               <MapPin size={22} />
             </span>
@@ -97,7 +97,7 @@ export default function Location() {
                 alt={IMG.local.alt}
                 loading="lazy"
                 decoding="async"
-                className="h-72 w-full object-cover object-[center_42%] sm:h-80"
+                className="h-52 w-full object-cover object-[center_42%] sm:h-80"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-transparent to-transparent" />
               <p className="absolute inset-x-4 bottom-4 text-[13px] font-semibold text-white">
@@ -111,7 +111,7 @@ export default function Location() {
                 src={mapsEmbedUrl}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="h-64 w-full sm:h-full sm:min-h-[240px]"
+                className="h-52 w-full sm:h-full sm:min-h-[240px]"
                 style={{ border: 0, filter: 'grayscale(0.35) contrast(1.1) brightness(0.85)' }}
               />
             </div>

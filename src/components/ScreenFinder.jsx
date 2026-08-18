@@ -23,7 +23,8 @@ const TYPES = [
   { id: CATEGORIES.TAPAS, label: 'Tapas' },
 ]
 
-const STEP = 12
+// En movil se muestran menos resultados de entrada para no alargar el scroll.
+const STEP = typeof window !== 'undefined' && window.innerWidth < 640 ? 6 : 12
 
 export default function ScreenFinder({ onOpenProduct }) {
   const [query, setQuery] = useState('')
@@ -123,7 +124,7 @@ export default function ScreenFinder({ onOpenProduct }) {
         {/* Resultados */}
         {results.length > 0 ? (
           <>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-8 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
               {results.slice(0, limit).map((p, i) => (
                 <div key={p.id} data-reveal data-reveal-delay={(i % 4) * 60}>
                   <ProductCard product={p} onOpen={onOpenProduct} />

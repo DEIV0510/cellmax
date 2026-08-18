@@ -43,7 +43,7 @@ export default function Gallery() {
           sub="Nuestro local, nuestras pantallas y el material real de Cell Max en Cúcuta."
         />
 
-        <div className="mt-12 grid auto-rows-[190px] grid-flow-row-dense grid-cols-2 gap-3 sm:auto-rows-[220px] lg:grid-cols-4">
+        <div className="mt-9 grid auto-rows-[132px] grid-flow-row-dense grid-cols-2 gap-2.5 sm:mt-12 sm:auto-rows-[220px] sm:gap-3 lg:grid-cols-4">
           {gallery.map((item, i) => {
             const image = img(item.key)
             const span =

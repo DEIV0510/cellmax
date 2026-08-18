@@ -40,7 +40,7 @@ export default function Services() {
           sub="Reparación, pantallas y repuestos para tu dispositivo, con asesoría antes y después de la compra."
         />
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-9 grid grid-cols-2 gap-2.5 sm:mt-12 sm:gap-4 lg:grid-cols-4">
           {services.map((s, i) => {
             const Icon = ICONS[s.icon] || Wrench
             const image = s.image ? IMG[s.image] : null
@@ -49,7 +49,7 @@ export default function Services() {
                 key={s.id}
                 data-reveal
                 data-reveal-delay={(i % 4) * 70}
-                className="card-premium group flex flex-col p-5"
+                className="card-premium group flex flex-col p-3.5 sm:p-5"
               >
                 {image && (
                   <div className="relative -mx-5 -mt-5 mb-4 overflow-hidden border-b border-white/[0.07]">
@@ -64,14 +64,14 @@ export default function Services() {
                   </div>
                 )}
 
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric-500/10 text-electric-300 transition-all duration-300 group-hover:bg-electric-500/20 group-hover:text-electric-200">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-electric-500/10 text-electric-300 transition-all duration-300 group-hover:bg-electric-500/20 group-hover:text-electric-200 sm:h-11 sm:w-11">
                   <Icon size={20} />
                 </span>
 
-                <h3 className="mt-4 text-[15.5px] font-bold leading-tight tracking-tight">
+                <h3 className="mt-3 text-[13.5px] font-bold leading-tight tracking-tight sm:mt-4 sm:text-[15.5px]">
                   {s.title}
                 </h3>
-                <p className="mt-2 flex-1 text-[13.5px] leading-relaxed text-steel-400">{s.desc}</p>
+                <p className="mt-1.5 flex-1 text-[12px] leading-relaxed text-steel-400 sm:mt-2 sm:text-[13.5px]">{s.desc}</p>
 
                 <a
                   href={wa(s.wa)}

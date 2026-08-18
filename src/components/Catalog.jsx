@@ -5,8 +5,29 @@ import { catalogBlocks, products } from '../data/products'
 import { formatCOP, waProduct } from '../utils/whatsapp'
 import { img } from '../utils/images'
 import { site } from '../data/site'
+import { useIsDesktop } from '../utils/useMediaQuery'
 
 const VISIBLE = 8
+
+/**
+ * En movil la cabecera de categoria es el control del acordeon.
+ * En escritorio todas las categorias van desplegadas, asi que es un encabezado
+ * estatico: no tiene sentido dejar un boton enfocable que no hace nada.
+ */
+function Cabecera({ isDesktop, open, panelId, onToggle, children }) {
+  if (isDesktop) return <div className="flex items-start justify-between gap-3">{children}</div>
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={open}
+      aria-controls={panelId}
+      className="flex w-full items-start justify-between gap-3 text-left"
+    >
+      {children}
+    </button>
+  )
+}
 
 export default function Catalog({ onOpenProduct }) {
   return (
@@ -19,9 +40,14 @@ export default function Catalog({ onOpenProduct }) {
           sub="Cada categoría con su precio, su garantía y sus características. Cotiza cualquier referencia directamente por WhatsApp."
         />
 
-        <div className="mt-12 space-y-14">
-          {catalogBlocks.map((block) => (
-            <CatalogBlock key={block.id} block={block} onOpenProduct={onOpenProduct} />
+        <div className="mt-10 space-y-3 sm:mt-12 lg:space-y-14">
+          {catalogBlocks.map((block, i) => (
+            <CatalogBlock
+              key={block.id}
+              block={block}
+              onOpenProduct={onOpenProduct}
+              defaultOpen={i === 0}
+            />
           ))}
         </div>
 
@@ -33,12 +59,18 @@ export default function Catalog({ onOpenProduct }) {
   )
 }
 
-function CatalogBlock({ block, onOpenProduct }) {
+function CatalogBlock({ block, onOpenProduct, defaultOpen = false }) {
   const [expanded, setExpanded] = useState(false)
+  // En movil cada categoria es un acordeon: solo la primera abre por defecto.
+  // En escritorio hay sitio de sobra, asi que se muestran todas desplegadas.
+  const isDesktop = useIsDesktop()
+  const [openMobile, setOpenMobile] = useState(defaultOpen)
+  const open = isDesktop || openMobile
   const items = products.filter((p) => p.category === block.category)
   const shown = expanded ? items : items.slice(0, VISIBLE)
   const gold = block.accent === 'gold'
   const image = img(block.image)
+  const panelId = `cat-panel-${block.id}`
 
   return (
     <article
@@ -48,7 +80,7 @@ function CatalogBlock({ block, onOpenProduct }) {
     >
       <div className="grid lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
         {/* Encabezado de categoria */}
-        <div className="relative border-b border-white/[0.07] p-6 lg:border-b-0 lg:border-r lg:p-7">
+        <div className="relative border-b border-white/[0.07] p-4 sm:p-6 lg:border-b-0 lg:border-r lg:p-7">
           <div
             aria-hidden="true"
             className={`pointer-events-none absolute inset-0 opacity-40 ${
@@ -58,7 +90,8 @@ function CatalogBlock({ block, onOpenProduct }) {
             }`}
           />
           <div className="relative">
-            <div className="mb-5 overflow-hidden rounded-2xl border border-white/10">
+            {/* La imagen del listado solo en pantallas grandes: en movil alarga mucho */}
+            <div className="mb-5 hidden overflow-hidden rounded-2xl border border-white/10 lg:block">
               <img
                 src={image.sm}
                 alt={image.alt}
@@ -68,37 +101,64 @@ function CatalogBlock({ block, onOpenProduct }) {
               />
             </div>
 
-            <h3 className="font-display text-xl font-extrabold leading-tight tracking-tight sm:text-[1.4rem]">
-              {block.title}
-            </h3>
-            <p className="mt-2.5 text-[13.5px] leading-relaxed text-steel-400">{block.desc}</p>
-
-            <span
-              className={`mt-4 inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[12px] font-bold ${
-                gold
-                  ? 'border-gold-500/35 bg-gold-500/10 text-gold-300'
-                  : 'border-electric-500/35 bg-electric-500/10 text-electric-300'
-              }`}
+            {/* Cabecera: boton de acordeon en movil, encabezado estatico en escritorio */}
+            <Cabecera
+              isDesktop={isDesktop}
+              open={open}
+              panelId={panelId}
+              onToggle={() => setOpenMobile((v) => !v)}
             >
-              <ShieldCheck size={14} /> {block.warranty}
-            </span>
+              <span className="min-w-0">
+                <h3 className="font-display text-[17px] font-extrabold leading-tight tracking-tight sm:text-xl lg:text-[1.4rem]">
+                  {block.title}
+                </h3>
+                <span className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5">
+                  <span
+                    className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11.5px] font-bold sm:px-3 sm:py-1.5 sm:text-[12px] ${
+                      gold
+                        ? 'border-gold-500/35 bg-gold-500/10 text-gold-300'
+                        : 'border-electric-500/35 bg-electric-500/10 text-electric-300'
+                    }`}
+                  >
+                    <ShieldCheck size={13} /> {block.warranty}
+                  </span>
+                  <span className="text-[11.5px] text-steel-500">
+                    {items.length} referencias
+                  </span>
+                </span>
+              </span>
+              {!isDesktop && (
+                <ChevronDown
+                  size={20}
+                  className={`mt-1 shrink-0 text-steel-400 transition-transform duration-300 ${
+                    open ? 'rotate-180' : ''
+                  }`}
+                />
+              )}
+            </Cabecera>
 
-            <ul className="mt-4 space-y-1.5">
-              {block.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-[12.5px] text-steel-400">
-                  <Check
-                    size={13}
-                    className={`mt-0.5 shrink-0 ${gold ? 'text-gold-400' : 'text-electric-400'}`}
-                  />
-                  {f}
-                </li>
-              ))}
-            </ul>
+            <div className={open ? 'block' : 'hidden'}>
+              <p className="mt-3 text-[13px] leading-relaxed text-steel-400 sm:text-[13.5px]">
+                {block.desc}
+              </p>
+
+              <ul className="mt-4 space-y-1.5">
+                {block.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-[12.5px] text-steel-400">
+                    <Check
+                      size={13}
+                      className={`mt-0.5 shrink-0 ${gold ? 'text-gold-400' : 'text-electric-400'}`}
+                    />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Tabla (desktop) / tarjetas (movil) */}
-        <div className="p-4 sm:p-6">
+        <div id={panelId} className={`${open ? 'block' : 'hidden'} p-4 sm:p-6`}>
           {/* Desktop */}
           <div className="hidden md:block">
             <table className="w-full border-separate border-spacing-y-1.5">
@@ -167,7 +227,7 @@ function CatalogBlock({ block, onOpenProduct }) {
           </div>
 
           {/* Movil: la tabla se convierte en tarjetas */}
-          <div className="grid gap-2.5 sm:grid-cols-2 md:hidden">
+          <div className="grid grid-cols-2 gap-2.5 md:hidden">
             {shown.map((p) => (
               <div
                 key={p.id}

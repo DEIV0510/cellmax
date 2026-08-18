@@ -15,7 +15,7 @@ export default function Process() {
           sub="Un procedimiento claro de principio a fin, para que sepas siempre en qué punto está tu equipo."
         />
 
-        <div className="relative mt-14">
+        <div className="relative mt-10 sm:mt-14">
           {/* Linea conectora en desktop */}
           <div
             aria-hidden="true"

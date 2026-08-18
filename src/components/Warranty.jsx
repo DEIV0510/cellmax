@@ -47,23 +47,23 @@ export default function Warranty() {
           sub="Trabajamos con condiciones claras: sabes exactamente qué garantía tiene lo que compras."
         />
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-[1.15fr_1fr] lg:gap-5">
+        <div className="mt-9 grid gap-3 sm:mt-12 sm:gap-4 lg:grid-cols-[1.15fr_1fr] lg:gap-5">
           {/* Pilares */}
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
             {PILLARS.map(({ icon: Icon, title, desc }, i) => (
-              <div key={title} className="card-premium p-5" data-reveal data-reveal-delay={i * 70}>
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric-500/10 text-electric-300">
+              <div key={title} className="card-premium p-4 sm:p-5" data-reveal data-reveal-delay={i * 70}>
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-electric-500/10 text-electric-300 sm:h-11 sm:w-11">
                   <Icon size={20} />
                 </span>
-                <h3 className="mt-4 text-[15px] font-bold tracking-tight">{title}</h3>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-steel-400">{desc}</p>
+                <h3 className="mt-3 text-[13.5px] font-bold leading-tight tracking-tight sm:mt-4 sm:text-[15px]">{title}</h3>
+                <p className="mt-1.5 text-[12px] leading-relaxed text-steel-400 sm:text-[13px]">{desc}</p>
               </div>
             ))}
           </div>
 
           {/* Tabla de garantias */}
           <div
-            className="card-premium card-gold flex flex-col p-6"
+            className="card-premium card-gold flex flex-col p-5 sm:p-6"
             data-reveal="right"
             data-reveal-delay="120"
           >

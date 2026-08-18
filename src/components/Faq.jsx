@@ -17,7 +17,7 @@ export default function Faq() {
           sub="Lo que más nos preguntan antes de venir al local."
         />
 
-        <div className="mx-auto mt-12 max-w-3xl space-y-2.5">
+        <div className="mx-auto mt-9 max-w-3xl space-y-2 sm:mt-12 sm:space-y-2.5">
           {faqs.map((item, i) => {
             const isOpen = open === i
             return (

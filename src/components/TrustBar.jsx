@@ -30,14 +30,14 @@ const ITEMS = [
 export default function TrustBar() {
   return (
     <section className="relative border-y border-white/[0.07] bg-ink-900/60">
-      <div className="container py-10 sm:py-12">
+      <div className="container py-8 sm:py-12">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
           {ITEMS.map(({ icon: Icon, title, desc, tone }, i) => (
             <div
               key={title}
               data-reveal
               data-reveal-delay={i * 70}
-              className={`card-premium ${tone === 'gold' ? 'card-gold' : ''} group p-5`}
+              className={`card-premium ${tone === 'gold' ? 'card-gold' : ''} group p-4 sm:p-5`}
             >
               <span
                 className={`flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${

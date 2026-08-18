@@ -14,7 +14,7 @@ export default function Comparator() {
           sub="Cada alternativa tiene su ventaja. Compara y elige la que mejor se ajuste a lo que buscas."
         />
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+        <div className="mt-9 grid gap-3 sm:mt-12 sm:gap-4 lg:grid-cols-3">
           {comparator.map((opt, i) => {
             const gold = opt.accent === 'gold'
             return (
@@ -22,7 +22,7 @@ export default function Comparator() {
                 key={opt.id}
                 data-reveal
                 data-reveal-delay={i * 90}
-                className={`card-premium ${gold ? 'card-gold' : ''} flex flex-col p-6 ${
+                className={`card-premium ${gold ? 'card-gold' : ''} flex flex-col p-5 sm:p-6 ${
                   opt.highlight ? 'lg:-translate-y-3 lg:shadow-glow-gold' : ''
                 }`}
               >
@@ -43,7 +43,7 @@ export default function Comparator() {
                   }`}
                 />
 
-                <ul className="mt-5 flex-1 space-y-2.5">
+                <ul className="mt-4 flex-1 space-y-2 sm:mt-5 sm:space-y-2.5">
                   {opt.points.map((p) => (
                     <li key={p} className="flex items-start gap-2.5 text-[13.5px] text-steel-400">
                       <Check
@@ -55,7 +55,7 @@ export default function Comparator() {
                   ))}
                 </ul>
 
-                <div className="mt-6 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
+                <div className="mt-6 hidden rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 lg:block">
                   <p className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-steel-500">
                     Garantía
                   </p>

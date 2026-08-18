@@ -21,8 +21,8 @@ export default function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-ink-950 to-transparent" />
       </div>
 
-      <div className="container relative py-14 lg:py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_1fr] lg:gap-14">
+      <div className="container relative py-9 sm:py-14 lg:py-20">
+        <div className="grid items-center gap-9 sm:gap-12 lg:grid-cols-[1.02fr_1fr] lg:gap-14">
           {/* Columna de texto */}
           <div className="text-center lg:text-left">
             <span className="eyebrow" data-reveal="fade">
@@ -81,7 +81,7 @@ export default function Hero() {
             </div>
 
             <ul
-              className="mt-9 grid grid-cols-2 gap-2.5 sm:grid-cols-4 lg:max-w-2xl"
+              className="mt-7 grid grid-cols-2 gap-2 sm:mt-9 sm:grid-cols-4 sm:gap-2.5 lg:max-w-2xl"
               data-reveal
               data-reveal-delay="340"
             >

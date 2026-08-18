@@ -28,7 +28,7 @@ export default function Section({ id, children, className = '', tone = 'default'
         ? 'bg-gradient-to-b from-ink-950 via-ink-900/60 to-ink-950'
         : ''
   return (
-    <section id={id} className={`relative scroll-mt-20 py-16 sm:py-20 lg:py-24 ${bg} ${className}`}>
+    <section id={id} className={`relative scroll-mt-20 py-11 sm:py-20 lg:py-24 ${bg} ${className}`}>
       {children}
     </section>
   )
