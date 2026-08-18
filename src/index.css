@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Compensa el header sticky al navegar por anclas */
+    scroll-padding-top: 88px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-ink-950 font-sans text-steel-200 antialiased;
+    /* Ningun elemento debe generar scroll horizontal */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-white;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: rgba(10, 132, 255, 0.35);
+    color: #fff;
+  }
+
+  /* Scrollbar tecnologico (desktop) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05070c;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #0a84ff55, #0a84ff22);
+    border-radius: 999px;
+    border: 2px solid #05070c;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0a84ff99, #0a84ff44);
+  }
+
+  :focus-visible {
+    outline: 2px solid #3d97ff;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* ---------- Superficies ---------- */
+  .glass {
+    @apply border border-white/10 bg-white/[0.035] backdrop-blur-xl;
+  }
+
+  .card-premium {
+    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.015] shadow-card transition-all duration-300;
+  }
+
+  .card-premium::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px opacity-60;
+    background: linear-gradient(90deg, transparent, rgba(10, 132, 255, 0.75), transparent);
+  }
+
+  .card-premium:hover {
+    @apply -translate-y-1 border-electric-500/40;
+    box-shadow:
+      0 0 0 1px rgba(10, 132, 255, 0.22),
+      0 30px 70px -32px rgba(10, 132, 255, 0.55);
+  }
+
+  .card-gold:hover {
+    @apply border-gold-500/45;
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 55, 0.25),
+      0 30px 70px -32px rgba(212, 175, 55, 0.45);
+  }
+
+  /* ---------- Botones ---------- */
+  .btn {
+    @apply relative inline-flex select-none items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold tracking-wide transition-all duration-200 active:scale-[0.97];
+    min-height: 48px;
+  }
+
+  .btn-primary {
+    @apply text-white;
+    background: linear-gradient(135deg, #0a84ff 0%, #0066d6 100%);
+    box-shadow:
+      0 0 0 1px rgba(107, 178, 255, 0.35) inset,
+      0 14px 34px -14px rgba(10, 132, 255, 0.85);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #3d97ff 0%, #0a84ff 100%);
+    box-shadow:
+      0 0 0 1px rgba(157, 203, 255, 0.5) inset,
+      0 18px 46px -14px rgba(10, 132, 255, 0.95);
+  }
+
+  .btn-wa {
+    @apply text-white;
+    background: linear-gradient(135deg, #25d366 0%, #128c4a 100%);
+    box-shadow:
+      0 0 0 1px rgba(120, 233, 168, 0.3) inset,
+      0 14px 34px -14px rgba(37, 211, 102, 0.7);
+  }
+  .btn-wa:hover {
+    background: linear-gradient(135deg, #3ae37b 0%, #17a457 100%);
+  }
+
+  .btn-gold {
+    @apply text-ink-950;
+    background: linear-gradient(135deg, #ebcf80 0%, #d4af37 55%, #b08d22 100%);
+    box-shadow: 0 14px 34px -14px rgba(212, 175, 55, 0.75);
+  }
+  .btn-gold:hover {
+    background: linear-gradient(135deg, #f4e2a8 0%, #dfb94f 55%, #c69c2b 100%);
+  }
+
+  .btn-ghost {
+    @apply border border-white/15 bg-white/[0.04] text-white backdrop-blur;
+  }
+  .btn-ghost:hover {
+    @apply border-electric-500/50 bg-electric-500/10;
+  }
+
+  /* ---------- Tipografia de apoyo ---------- */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-electric-500/25 bg-electric-500/[0.08] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-electric-200;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-extrabold uppercase leading-[1.16] tracking-tight text-white sm:text-4xl lg:text-[2.85rem];
+  }
+
+  .section-sub {
+    @apply mx-auto max-w-2xl text-[15px] leading-relaxed text-steel-400 sm:text-base;
+  }
+
+  .text-gradient-blue {
+    background: linear-gradient(100deg, #ffffff 0%, #9ccbff 40%, #0a84ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(100deg, #f4e2a8 0%, #d4af37 55%, #b08d22 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---------- Detalles tecnologicos ---------- */
+  .hairline {
+    @apply h-px w-full;
+    background: linear-gradient(90deg, transparent, rgba(10, 132, 255, 0.55), transparent);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.05] px-2.5 py-1 text-[11px] font-medium text-steel-300;
+  }
+}
+
+@layer components {
+  /* ---------- Reveal on scroll ---------- */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  [data-reveal='fade'] {
+    transform: none;
+  }
+  [data-reveal='left'] {
+    transform: translateX(-28px);
+  }
+  [data-reveal='right'] {
+    transform: translateX(28px);
+  }
+  [data-reveal='zoom'] {
+    transform: scale(0.95);
+  }
+  .is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Padding seguro para la barra inferior movil (iPhone con notch) */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .mb-safe-tab {
+    margin-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+}
