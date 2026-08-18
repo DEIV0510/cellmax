@@ -84,7 +84,7 @@ export default function QuoteForm() {
                 href={wa()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 block font-display text-2xl font-extrabold text-gradient-blue"
+                className="mt-1 inline-flex min-h-[40px] items-center font-display text-2xl font-extrabold text-gradient-blue"
               >
                 {site.phoneDisplay}
               </a>

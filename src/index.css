@@ -246,6 +246,6 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .mb-safe-tab {
-    margin-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    margin-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   }
 }

@@ -37,7 +37,7 @@ export default function ProductCard({ product, onOpen }) {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/10 to-transparent" />
         )}
         <span
-          className={`absolute left-2 top-2 rounded-md border px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider backdrop-blur sm:left-3 sm:top-3 sm:rounded-lg sm:px-2 sm:py-1 sm:text-[10px] ${accent}`}
+          className={`absolute left-2 top-2 rounded-md border px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wide backdrop-blur sm:left-3 sm:top-3 sm:rounded-lg sm:px-2 sm:py-1 sm:tracking-wider ${accent}`}
         >
           <span className="sm:hidden">{SHORT[product.type] || product.type}</span>
           <span className="hidden sm:inline">{product.type}</span>
@@ -56,7 +56,7 @@ export default function ProductCard({ product, onOpen }) {
           <p className="font-display text-[17px] font-extrabold text-white sm:text-xl">
             {formatCOP(product.price)}
           </p>
-          <span className="chip shrink-0 !px-1.5 !text-[10px] sm:!px-2.5 sm:!text-[11px]">
+          <span className="chip shrink-0 !px-2 !text-[10.5px] sm:!px-2.5 sm:!text-[11px]">
             <ShieldCheck size={11} className="text-electric-400" />
             {product.warranty}
           </span>

@@ -256,7 +256,7 @@ function CatalogBlock({ block, onOpenProduct, defaultOpen = false }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Cotizar ${p.model} por WhatsApp`}
-                    className="inline-flex min-h-[40px] items-center gap-1.5 rounded-lg bg-[#25d366]/15 px-3.5 py-2 text-[12px] font-semibold text-[#3ae37b]"
+                    className="inline-flex min-h-[42px] items-center gap-1.5 rounded-lg bg-[#25d366]/15 px-3.5 py-2 text-[12px] font-semibold text-[#3ae37b]"
                   >
                     <MessageCircle size={14} /> Cotizar
                   </a>

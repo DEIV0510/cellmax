@@ -112,7 +112,7 @@ export default function Location() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="h-52 w-full sm:h-full sm:min-h-[240px]"
-                style={{ border: 0, filter: 'grayscale(0.35) contrast(1.1) brightness(0.85)' }}
+                style={{ border: 0, filter: 'grayscale(0.85) contrast(1.12) brightness(0.6)' }}
               />
             </div>
           </div>

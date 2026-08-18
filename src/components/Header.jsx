@@ -72,7 +72,7 @@ export default function Header() {
         >
           <a
             href="#inicio"
-            className="flex shrink-0 items-center gap-2.5"
+            className="flex min-h-[44px] shrink-0 items-center gap-2.5"
             aria-label="Cell Max — Inicio"
           >
             <img

@@ -36,8 +36,8 @@ const SOCIAL = [
 export default function Footer() {
   return (
     <footer className="relative border-t border-white/[0.08] bg-ink-950 mb-safe-tab lg:mb-0">
-      <div className="container py-14">
-        <div className="grid gap-10 md:grid-cols-3 lg:gap-12">
+      <div className="container py-10 sm:py-14">
+        <div className="grid gap-8 md:grid-cols-3 md:gap-10 lg:gap-12">
           {/* Marca */}
           <div>
             <img src={CM_LOGO} alt="Cell Max" width={72} height={63} className="h-14 w-auto" />
@@ -73,12 +73,12 @@ export default function Footer() {
             <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-steel-500">
               Navegación
             </h2>
-            <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 md:grid-cols-1">
+            <ul className="mt-2 grid grid-cols-2 gap-x-4 md:mt-4 md:grid-cols-1">
               {LINKS.map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="inline-block py-1 text-[14px] text-steel-400 transition-colors hover:text-white"
+                    className="inline-flex min-h-[40px] items-center text-[14px] text-steel-400 transition-colors hover:text-white"
                   >
                     {l.label}
                   </a>
@@ -159,7 +159,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="hairline mt-12" />
+        <div className="hairline mt-9 sm:mt-12" />
 
         <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
           <p className="text-[12px] text-steel-500">
