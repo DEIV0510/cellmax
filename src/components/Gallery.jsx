@@ -69,7 +69,7 @@ export default function Gallery() {
                   decoding="async"
                   className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.08]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/95 via-ink-950/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/45 to-transparent" />
 
                 <span className="absolute left-3 top-3 rounded-lg border border-white/15 bg-ink-950/60 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-steel-300 backdrop-blur">
                   {item.tag}
@@ -79,7 +79,7 @@ export default function Gallery() {
                   <Expand size={14} />
                 </span>
 
-                <p className="absolute inset-x-3 bottom-3 text-[12.5px] font-semibold leading-snug text-white">
+                <p className="absolute inset-x-3 bottom-3 line-clamp-2 text-[12px] font-semibold leading-snug text-white sm:text-[12.5px]">
                   {item.caption}
                 </p>
               </button>
