@@ -25,7 +25,7 @@ export default function ProductModal({ product, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-end justify-center overflow-y-auto p-0 sm:items-center sm:p-6"
+      className="fixed inset-0 z-[80] overflow-y-auto p-0 sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby="product-modal-title"
@@ -37,13 +37,17 @@ export default function ProductModal({ product, onClose }) {
         className="fixed inset-0 animate-fade-in cursor-default bg-ink-950/85 backdrop-blur-md"
       />
 
-      <div className="relative z-10 w-full max-w-3xl animate-fade-up overflow-hidden rounded-t-3xl border border-white/12 bg-ink-900 shadow-glow sm:rounded-3xl">
+      {/* min-h-full en el envoltorio flex: si el panel es mas alto que la pantalla, el
+          desbordamiento va hacia abajo y se puede hacer scroll (con items-end/center
+          directamente en el contenedor scrollable, la parte de arriba queda inalcanzable). */}
+      <div className="relative flex min-h-full items-end justify-center sm:items-center">
+      <div className="relative z-10 w-full max-w-3xl animate-fade-up overflow-hidden rounded-t-3xl border border-white/10 bg-ink-900 shadow-glow sm:rounded-3xl">
         <button
           ref={closeRef}
           type="button"
           onClick={onClose}
           aria-label="Cerrar detalle del producto"
-          className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-white/12 bg-ink-950/70 text-white backdrop-blur transition-colors hover:border-electric-500/50"
+          className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-ink-950/70 text-white backdrop-blur transition-colors hover:border-electric-500/50"
         >
           <X size={18} />
         </button>
@@ -104,6 +108,7 @@ export default function ProductModal({ product, onClose }) {
             </p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )

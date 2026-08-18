@@ -58,7 +58,7 @@ export default function Testimonials() {
             className="card-premium card-gold mx-auto mt-12 max-w-2xl p-8 text-center sm:p-10"
             data-reveal="zoom"
           >
-            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/12 text-gold-300">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/10 text-gold-300">
               <Quote size={24} />
             </span>
             <h3 className="mt-5 font-display text-xl font-extrabold tracking-tight sm:text-2xl">

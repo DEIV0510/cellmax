@@ -1,4 +1,4 @@
-import { Check, MessageCircle, Scale, Star } from 'lucide-react'
+import { Check, MessageCircle, Scale } from 'lucide-react'
 import Section, { SectionHead } from './Section'
 import { comparator } from '../data/products'
 import { wa, MESSAGES } from '../utils/whatsapp'
@@ -26,12 +26,6 @@ export default function Comparator() {
                   opt.highlight ? 'lg:-translate-y-3 lg:shadow-glow-gold' : ''
                 }`}
               >
-                {opt.highlight && (
-                  <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full border border-gold-500/40 bg-gold-500/12 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-gold-300">
-                    <Star size={10} className="fill-gold-400 text-gold-400" /> Más elegida
-                  </span>
-                )}
-
                 <h3
                   className={`font-display text-lg font-extrabold uppercase tracking-tight ${
                     gold ? 'text-gradient-gold' : 'text-gradient-blue'

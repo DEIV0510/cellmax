@@ -29,6 +29,7 @@ const TERMS = [
   { label: 'INCELL Premium HD Plus', days: '15 días', tone: 'electric' },
   { label: 'OLED Soft', days: '30 días', tone: 'gold' },
   { label: 'Originales de Samsung', days: '30 días', tone: 'electric' },
+  { label: 'Originales de iPhone', days: '30 días', tone: 'gold' },
 ]
 
 export default function Warranty() {
@@ -51,7 +52,7 @@ export default function Warranty() {
           <div className="grid gap-3 sm:grid-cols-2">
             {PILLARS.map(({ icon: Icon, title, desc }, i) => (
               <div key={title} className="card-premium p-5" data-reveal data-reveal-delay={i * 70}>
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric-500/12 text-electric-300">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric-500/10 text-electric-300">
                   <Icon size={20} />
                 </span>
                 <h3 className="mt-4 text-[15px] font-bold tracking-tight">{title}</h3>
@@ -97,7 +98,7 @@ export default function Warranty() {
             </p>
 
             <a
-              href={wa(MESSAGES.general)}
+              href={wa(MESSAGES.warranty)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-ghost mt-5 w-full"

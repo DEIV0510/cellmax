@@ -17,7 +17,7 @@ export default function FloatingWhatsApp() {
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label="Volver arriba"
-        className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/12 bg-ink-900/85 text-steel-300 backdrop-blur-xl transition-all duration-300 hover:border-electric-500/50 hover:text-white ${
+        className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-ink-900/85 text-steel-300 backdrop-blur-xl transition-all duration-300 hover:border-electric-500/50 hover:text-white ${
           showTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
         }`}
       >
@@ -37,7 +37,7 @@ export default function FloatingWhatsApp() {
           className="absolute inset-0 animate-pulse-ring rounded-2xl bg-[#25d366]/40"
         />
         <MessageCircle size={25} className="relative" />
-        <span className="pointer-events-none absolute right-[calc(100%+10px)] hidden whitespace-nowrap rounded-lg border border-white/12 bg-ink-900/95 px-3 py-2 text-[12.5px] font-semibold text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100 lg:block">
+        <span className="pointer-events-none absolute right-[calc(100%+10px)] hidden whitespace-nowrap rounded-lg border border-white/10 bg-ink-900/95 px-3 py-2 text-[12.5px] font-semibold text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100 lg:block">
           Cotiza por WhatsApp
         </span>
       </a>

@@ -6,7 +6,7 @@ const ACCENT = {
   'INCELL Premium HD Plus': 'text-electric-300 border-electric-500/30 bg-electric-500/10',
   'OLED Soft': 'text-gold-300 border-gold-500/30 bg-gold-500/10',
   'OLED Soft Premium': 'text-gold-200 border-gold-400/40 bg-gold-500/15',
-  'Original Samsung': 'text-electric-200 border-electric-400/30 bg-electric-500/12',
+  'Original Samsung': 'text-electric-200 border-electric-400/30 bg-electric-500/10',
   'Original iPhone': 'text-gold-300 border-gold-500/30 bg-gold-500/10',
   'Tapas iPhone': 'text-steel-300 border-white/15 bg-white/[0.06]',
 }
@@ -53,7 +53,7 @@ export default function ProductCard({ product, onOpen }) {
           <button
             type="button"
             onClick={() => onOpen(product)}
-            className="flex-1 rounded-lg border border-white/12 bg-white/[0.04] px-3 py-2.5 text-[12px] font-semibold text-white transition-colors hover:border-electric-500/50 hover:bg-electric-500/10"
+            className="flex-1 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-[12px] font-semibold text-white transition-colors hover:border-electric-500/50 hover:bg-electric-500/10"
           >
             VER DETALLE
           </button>

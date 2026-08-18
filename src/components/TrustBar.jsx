@@ -42,8 +42,8 @@ export default function TrustBar() {
               <span
                 className={`flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${
                   tone === 'gold'
-                    ? 'bg-gold-500/12 text-gold-300'
-                    : 'bg-electric-500/12 text-electric-300'
+                    ? 'bg-gold-500/10 text-gold-300'
+                    : 'bg-electric-500/10 text-electric-300'
                 }`}
               >
                 <Icon size={20} />

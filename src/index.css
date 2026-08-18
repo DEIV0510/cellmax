@@ -201,11 +201,20 @@
   [data-reveal='fade'] {
     transform: none;
   }
-  [data-reveal='left'] {
-    transform: translateX(-28px);
-  }
+  /* En pantallas pequeñas los bloques ocupan todo el ancho: un desplazamiento
+     lateral los sacaría del viewport, así que entran en vertical. El movimiento
+     lateral solo se usa donde el contenedor tiene holgura. */
+  [data-reveal='left'],
   [data-reveal='right'] {
-    transform: translateX(28px);
+    transform: translateY(26px);
+  }
+  @media (min-width: 1024px) {
+    [data-reveal='left'] {
+      transform: translateX(-28px);
+    }
+    [data-reveal='right'] {
+      transform: translateX(28px);
+    }
   }
   [data-reveal='zoom'] {
     transform: scale(0.95);

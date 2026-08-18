@@ -60,7 +60,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/12 bg-white/[0.04] text-steel-300 transition-colors ${hover}`}
+                  className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-steel-300 transition-colors ${hover}`}
                 >
                   <Icon size={18} />
                 </a>
@@ -100,7 +100,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="group flex items-start gap-3"
                 >
-                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#25d366]/12 text-[#3ae37b]">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#25d366]/10 text-[#3ae37b]">
                     <Phone size={15} />
                   </span>
                   <span>
@@ -121,7 +121,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="group flex items-start gap-3"
                 >
-                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-electric-500/12 text-electric-300">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-electric-500/10 text-electric-300">
                     <MapPin size={15} />
                   </span>
                   <span>
@@ -142,7 +142,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="group flex items-start gap-3"
                 >
-                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold-500/12 text-gold-300">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold-500/10 text-gold-300">
                     <Instagram size={15} />
                   </span>
                   <span>
@@ -165,7 +165,7 @@ export default function Footer() {
           <p className="text-[12px] text-steel-500">
             © {new Date().getFullYear()} {site.name} — {site.tagline}. Todos los derechos reservados.
           </p>
-          <p className="text-[11.5px] text-steel-600">{site.priceNote}</p>
+          <p className="text-[11.5px] text-steel-400">{site.priceNote}</p>
         </div>
       </div>
     </footer>

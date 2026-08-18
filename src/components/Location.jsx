@@ -29,7 +29,7 @@ export default function Location() {
         <div className="mt-12 grid gap-4 lg:grid-cols-[1.05fr_1fr] lg:gap-5">
           {/* Tarjeta de ubicacion */}
           <div className="card-premium p-6 sm:p-7" data-reveal="left">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-electric-500/12 text-electric-300">
+            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-electric-500/10 text-electric-300">
               <MapPin size={22} />
             </span>
 
@@ -83,7 +83,7 @@ export default function Location() {
               href={site.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2.5 flex items-center justify-center gap-2 rounded-xl border border-gold-500/25 bg-gold-500/[0.07] px-4 py-3 text-[13px] font-semibold text-gold-300 transition-colors hover:border-gold-500/50 hover:bg-gold-500/12"
+              className="mt-2.5 flex items-center justify-center gap-2 rounded-xl border border-gold-500/25 bg-gold-500/[0.07] px-4 py-3 text-[13px] font-semibold text-gold-300 transition-colors hover:border-gold-500/50 hover:bg-gold-500/10"
             >
               <Instagram size={16} /> Síguenos en Instagram
             </a>
@@ -91,7 +91,7 @@ export default function Location() {
 
           {/* Foto real + mapa */}
           <div className="flex flex-col gap-4" data-reveal="right" data-reveal-delay="90">
-            <div className="relative overflow-hidden rounded-2xl border border-white/12">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10">
               <img
                 src={IMG.local.src}
                 alt={IMG.local.alt}
@@ -105,7 +105,7 @@ export default function Location() {
               </p>
             </div>
 
-            <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/12 bg-ink-900">
+            <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10 bg-ink-900">
               <iframe
                 title={`Ubicación de Cell Max en ${site.address.cityAccented}`}
                 src={mapsEmbedUrl}

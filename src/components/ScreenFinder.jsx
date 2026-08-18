@@ -83,7 +83,7 @@ export default function ScreenFinder({ onOpenProduct }) {
                 setLimit(STEP)
               }}
               placeholder="Busca tu modelo, por ejemplo: iPhone 13 Pro Max"
-              className="h-14 w-full rounded-2xl border border-white/12 bg-white/[0.04] pl-12 pr-12 text-[15px] text-white placeholder:text-steel-500 backdrop-blur-xl transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none"
+              className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.04] pl-12 pr-12 text-[15px] text-white placeholder:text-steel-500 backdrop-blur-xl transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none"
             />
             {query && (
               <button
@@ -112,7 +112,7 @@ export default function ScreenFinder({ onOpenProduct }) {
               <button
                 type="button"
                 onClick={reset}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-white/12 px-3 py-1.5 text-[12px] font-medium text-steel-300 transition-colors hover:border-electric-500/40 hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-[12px] font-medium text-steel-300 transition-colors hover:border-electric-500/40 hover:text-white"
               >
                 <X size={13} /> Limpiar filtros
               </button>

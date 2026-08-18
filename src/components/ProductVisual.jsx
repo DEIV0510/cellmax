@@ -98,7 +98,7 @@ export default function ProductVisual({ product, className = '' }) {
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
         <div
           className={`absolute inset-x-0 top-0 h-10 animate-scan bg-gradient-to-b from-transparent to-transparent ${
-            gold ? 'via-gold-400/10' : 'via-electric-400/12'
+            gold ? 'via-gold-400/10' : 'via-electric-400/10'
           }`}
         />
       </div>

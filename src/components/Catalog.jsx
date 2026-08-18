@@ -129,11 +129,18 @@ function CatalogBlock({ block, onOpenProduct }) {
                 {shown.map((p) => (
                   <tr
                     key={p.id}
-                    className="group cursor-pointer bg-white/[0.03] transition-colors hover:bg-electric-500/[0.09]"
-                    onClick={() => onOpenProduct(p)}
+                    className="group bg-white/[0.03] transition-colors hover:bg-electric-500/[0.09]"
                   >
-                    <td className="rounded-l-xl border-y border-l border-white/[0.07] px-4 py-3 text-[14px] font-medium text-white group-hover:border-electric-500/25">
-                      {p.model}
+                    <td className="rounded-l-xl border-y border-l border-white/[0.07] p-0 group-hover:border-electric-500/25">
+                      {/* Boton en vez de onClick sobre la fila: enfocable y accionable con teclado */}
+                      <button
+                        type="button"
+                        onClick={() => onOpenProduct(p)}
+                        aria-label={`Ver detalle de ${p.model}`}
+                        className="w-full rounded-l-xl px-4 py-3 text-left text-[14px] font-medium text-white"
+                      >
+                        {p.model}
+                      </button>
                     </td>
                     <td
                       className={`border-y border-white/[0.07] px-4 py-3 font-display text-[15px] font-extrabold group-hover:border-electric-500/25 ${
@@ -147,9 +154,8 @@ function CatalogBlock({ block, onOpenProduct }) {
                         href={waProduct(p)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
                         aria-label={`Cotizar ${p.model} por WhatsApp`}
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#25d366]/12 px-3 py-2 text-[12px] font-semibold text-[#3ae37b] transition-colors hover:bg-[#25d366]/25"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#25d366]/10 px-3 py-2 text-[12px] font-semibold text-[#3ae37b] transition-colors hover:bg-[#25d366]/25"
                       >
                         <MessageCircle size={14} /> WhatsApp
                       </a>
@@ -204,7 +210,7 @@ function CatalogBlock({ block, onOpenProduct }) {
               type="button"
               onClick={() => setExpanded((v) => !v)}
               aria-expanded={expanded}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-[13px] font-semibold text-white transition-colors hover:border-electric-500/45 hover:bg-electric-500/10"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-[13px] font-semibold text-white transition-colors hover:border-electric-500/45 hover:bg-electric-500/10"
             >
               {expanded ? 'Ver menos' : `Ver ${items.length - VISIBLE} referencias más`}
               <ChevronDown

@@ -101,7 +101,7 @@ export default function Hero() {
 
           {/* Imagen real del negocio */}
           <div className="relative" data-reveal="zoom" data-reveal-delay="140">
-            <div className="relative overflow-hidden rounded-[22px] border border-white/12 shadow-glow">
+            <div className="relative overflow-hidden rounded-[22px] border border-white/10 shadow-glow">
               <img
                 src={IMG.hero.src}
                 alt={IMG.hero.alt}
@@ -116,7 +116,7 @@ export default function Hero() {
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 overflow-hidden"
               >
-                <div className="absolute inset-x-0 top-0 h-16 animate-scan bg-gradient-to-b from-transparent via-electric-400/12 to-transparent" />
+                <div className="absolute inset-x-0 top-0 h-16 animate-scan bg-gradient-to-b from-transparent via-electric-400/10 to-transparent" />
               </div>
               <div
                 aria-hidden="true"

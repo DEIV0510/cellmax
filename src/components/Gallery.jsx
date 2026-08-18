@@ -43,7 +43,7 @@ export default function Gallery() {
           sub="Nuestro local, nuestras pantallas y el material real de Cell Max en Cúcuta."
         />
 
-        <div className="mt-12 grid auto-rows-[190px] grid-cols-2 gap-3 sm:auto-rows-[220px] lg:grid-cols-4">
+        <div className="mt-12 grid auto-rows-[190px] grid-flow-row-dense grid-cols-2 gap-3 sm:auto-rows-[220px] lg:grid-cols-4">
           {gallery.map((item, i) => {
             const image = img(item.key)
             const span =
@@ -100,7 +100,7 @@ export default function Gallery() {
             type="button"
             aria-label="Cerrar galería"
             onClick={close}
-            className="absolute inset-0 animate-fade-in cursor-default bg-ink-950/92 backdrop-blur-lg"
+            className="absolute inset-0 animate-fade-in cursor-default bg-ink-950/90 backdrop-blur-lg"
           />
 
           <button
@@ -134,7 +134,7 @@ export default function Gallery() {
             <img
               src={current.src}
               alt={current.alt}
-              className="mx-auto max-h-[76vh] w-auto max-w-full rounded-2xl border border-white/12 object-contain shadow-glow"
+              className="mx-auto max-h-[76vh] w-auto max-w-full rounded-2xl border border-white/10 object-contain shadow-glow"
             />
             <figcaption className="mt-4 text-center text-[13.5px] text-steel-300">
               {gallery[index].caption}

@@ -117,7 +117,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram de Cell Max"
-              className="hidden h-11 w-11 items-center justify-center rounded-xl border border-white/12 bg-white/[0.04] text-steel-300 transition-colors hover:border-gold-500/40 hover:text-gold-300 md:flex"
+              className="hidden h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-steel-300 transition-colors hover:border-gold-500/40 hover:text-gold-300 md:flex"
             >
               <Instagram size={18} />
             </a>
@@ -136,7 +136,7 @@ export default function Header() {
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={open}
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/12 bg-white/[0.04] text-white transition-colors hover:border-electric-500/50 lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white transition-colors hover:border-electric-500/50 lg:hidden"
             >
               {open ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -144,10 +144,11 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Menu movil */}
+      {/* Menu movil. Cerrado: fuera del arbol de accesibilidad y del orden de tabulacion. */}
       <div
-        className={`overflow-hidden border-t border-white/10 bg-ink-950/97 backdrop-blur-2xl transition-[max-height,opacity] duration-500 lg:hidden ${
-          open ? 'max-h-[520px] opacity-100' : 'max-h-0 opacity-0'
+        aria-hidden={!open}
+        className={`overflow-hidden border-t border-white/10 bg-ink-950/95 backdrop-blur-2xl transition-[max-height,opacity] duration-500 lg:hidden ${
+          open ? 'max-h-[520px] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
         }`}
       >
         <nav className="container flex flex-col gap-1 py-4" aria-label="Navegación móvil">
@@ -156,6 +157,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
+              tabIndex={open ? undefined : -1}
               style={{ transitionDelay: open ? `${i * 35}ms` : '0ms' }}
               className={`rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3.5 text-[15px] font-medium text-steel-200 transition-all duration-300 active:scale-[0.98] ${
                 open ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'
@@ -169,6 +171,7 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
+            tabIndex={open ? undefined : -1}
             className="mt-1 flex items-center justify-center gap-2 rounded-xl border border-gold-500/25 bg-gold-500/[0.08] px-4 py-3.5 text-[15px] font-semibold text-gold-300"
           >
             <Instagram size={18} /> Síguenos en Instagram

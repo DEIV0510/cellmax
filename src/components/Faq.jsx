@@ -52,6 +52,7 @@ export default function Faq() {
                 </h3>
                 <div
                   id={`faq-panel-${i}`}
+                  aria-hidden={!isOpen}
                   className={`grid transition-all duration-500 ease-out ${
                     isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                   }`}

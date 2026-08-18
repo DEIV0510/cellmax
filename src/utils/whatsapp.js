@@ -30,6 +30,7 @@ export const MESSAGES = {
   advisor: 'Hola Cell Max, quiero hablar con un asesor sobre qué pantalla necesito.',
   repair: 'Hola Cell Max, quiero solicitar una reparación para mi dispositivo.',
   location: 'Hola Cell Max, quiero confirmar la ubicación del local para visitarlos.',
+  warranty: 'Hola Cell Max, quiero conocer la garantía de un producto.',
 }
 
 /** Formato de precio colombiano: $60.000 */

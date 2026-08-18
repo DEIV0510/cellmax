@@ -17,7 +17,7 @@ const SERVICES = [
 ]
 
 const FIELD =
-  'h-12 w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 text-[14.5px] text-white placeholder:text-steel-500 transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none'
+  'h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-[14.5px] text-white placeholder:text-steel-500 transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none'
 
 export default function QuoteForm() {
   const [form, setForm] = useState({
@@ -68,7 +68,7 @@ export default function QuoteForm() {
                 'Asesoría para elegir el tipo de pantalla',
               ].map((t) => (
                 <li key={t} className="flex items-center gap-3 text-[14px] text-steel-300">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-electric-500/12 text-electric-300">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-electric-500/10 text-electric-300">
                     <MessageCircle size={15} />
                   </span>
                   {t}
@@ -185,7 +185,7 @@ export default function QuoteForm() {
                   value={form.message}
                   onChange={set('message')}
                   placeholder="Cuéntanos qué le pasa a tu equipo..."
-                  className="w-full resize-none rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-[14.5px] text-white placeholder:text-steel-500 transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none"
+                  className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-[14.5px] text-white placeholder:text-steel-500 transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none"
                 />
               </div>
             </div>

@@ -64,7 +64,7 @@ export default function Services() {
                   </div>
                 )}
 
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric-500/12 text-electric-300 transition-all duration-300 group-hover:bg-electric-500/20 group-hover:text-electric-200">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric-500/10 text-electric-300 transition-all duration-300 group-hover:bg-electric-500/20 group-hover:text-electric-200">
                   <Icon size={20} />
                 </span>
 
@@ -77,7 +77,7 @@ export default function Services() {
                   href={wa(s.wa)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg border border-white/12 bg-white/[0.04] px-3 py-2.5 text-[12.5px] font-semibold text-white transition-colors hover:border-[#25d366]/50 hover:bg-[#25d366]/10"
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-[12.5px] font-semibold text-white transition-colors hover:border-[#25d366]/50 hover:bg-[#25d366]/10"
                 >
                   <MessageCircle size={15} /> COTIZAR
                 </a>
