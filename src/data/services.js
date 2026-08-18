@@ -19,7 +19,6 @@ export const services = [
     icon: 'Sparkles',
     title: 'Pantallas OLED Soft',
     desc: 'Pantallas de calidad premium para diferentes modelos.',
-    image: 'oled-13-pro-max',
     wa: 'Hola Cell Max, quiero cotizar una pantalla OLED Soft.',
   },
   {
