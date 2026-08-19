@@ -16,7 +16,7 @@ visita al local.
 | Build | Vite 5 |
 | Estilos | Tailwind CSS 3 |
 | Iconos | lucide-react |
-| Imágenes | sharp (pipeline propio → WebP) |
+| Imágenes | sharp (pipeline propio → AVIF + WebP) |
 
 Sin librerías pesadas: el bundle es React + lucide y nada más.
 
@@ -57,7 +57,7 @@ cellmax/
 └── src/
     ├── App.jsx             Composición de secciones
     ├── index.css           Tokens, componentes CSS y animaciones
-    ├── assets/img/         Imágenes procesadas (WebP, dos tamaños cada una)
+    ├── assets/img/         Imágenes procesadas (AVIF + WebP, dos tamaños cada una)
     ├── data/               ← DATOS EDITABLES (ver abajo)
     │   ├── site.js         Teléfono, dirección, Instagram, textos de marca
     │   ├── products.js     Catálogo completo con precios y garantías
@@ -162,7 +162,7 @@ Decisiones tomadas para que la web vaya bien en un celular de gama media:
 - La imagen del hero se sirve reducida en móvil mediante `srcset`.
 
 - **Todas las imágenes salen en AVIF y WebP.** AVIF pesa un 32% menos; el
-  navegador que no lo soporte usa el WebP sin enterarse (componente ).
+  navegador que no lo soporte usa el WebP sin enterarse (componente Imagen).
 - El logo se servía dos veces (una desde `public` para la pantalla de carga y
   otra desde `assets` para el encabezado). Ahora es el mismo archivo.
 - El favicon pesaba 79 KB porque se generaba a 512px, y el navegador lo pide en
@@ -177,6 +177,24 @@ Medido en iPhone 13 con CPU 4x más lenta y 4G:
 | Recorrido completo | 544 KB | **415 KB** |
 | Primer pintado | 824 ms | **700 ms** |
 | Nodos en el DOM | 2.324 | **1.628** |
+
+## Compatibilidad
+
+El proyecto declara un `browserslist` explícito en `package.json`. No es un
+detalle menor: sin él, autoprefixer asumía navegadores muy recientes y **no
+generaba `-webkit-backdrop-filter`**, que es la única forma en que Safari de
+iPhone entiende el desenfoque. El resultado era que en iPhone las tarjetas de
+cristal del hero, el buscador y las barras fijas perdían su fondo.
+
+Además, ninguna superficie depende del desenfoque para tener contraste: iOS lo
+desactiva cuando el usuario activa «Reducir transparencia» en accesibilidad. El
+encabezado, el menú y la barra inferior son opacos en móvil, y `.glass` lleva un
+color de base sólido. El desenfoque es un adorno, nunca el fondo.
+
+`npm run check` corre antes de cada build y avisa de clases de Tailwind con
+opacidades fuera de escala, que no generan CSS y dejan pasar el build en verde.
+
+---
 
 ## Contacto del negocio
 

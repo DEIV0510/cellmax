@@ -27,7 +27,7 @@ export default function FloatingWhatsApp() {
         aria-label="Volver arriba"
         aria-hidden={!showTop}
         tabIndex={showTop ? undefined : -1}
-        className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-ink-900/85 text-steel-300 backdrop-blur-xl transition-all duration-300 hover:border-electric-500/50 hover:text-white ${
+        className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-ink-900/95 text-steel-300 backdrop-blur-xl transition-all duration-300 hover:border-electric-500/50 hover:text-white ${
           showTop ? 'pointer-events-auto translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
         }`}
       >

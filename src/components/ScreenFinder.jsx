@@ -84,7 +84,7 @@ export default function ScreenFinder({ onOpenProduct }) {
                 setLimit(STEP)
               }}
               placeholder="Busca tu modelo, por ejemplo: iPhone 13 Pro Max"
-              className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.04] pl-12 pr-12 text-[15px] text-white placeholder:text-steel-500 backdrop-blur-xl transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none"
+              className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.07] pl-12 pr-12 text-[15px] text-white placeholder:text-steel-500 backdrop-blur-xl transition-colors focus:border-electric-500/60 focus:bg-white/[0.06] focus:outline-none"
             />
             {query && (
               <button

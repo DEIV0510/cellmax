@@ -102,7 +102,7 @@ export default function Gallery() {
             type="button"
             aria-label="Cerrar galería"
             onClick={close}
-            className="absolute inset-0 animate-fade-in cursor-default bg-ink-950/90 backdrop-blur-lg"
+            className="absolute inset-0 animate-fade-in cursor-default bg-ink-950/[0.97] backdrop-blur-lg"
           />
 
           <button

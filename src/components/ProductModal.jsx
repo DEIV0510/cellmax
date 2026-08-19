@@ -35,7 +35,7 @@ export default function ProductModal({ product, onClose }) {
         type="button"
         aria-label="Cerrar"
         onClick={onClose}
-        className="fixed inset-0 animate-fade-in cursor-default bg-ink-950/85 backdrop-blur-md"
+        className="fixed inset-0 animate-fade-in cursor-default bg-ink-950/[0.97] backdrop-blur-md"
       />
 
       {/* min-h-full en el envoltorio flex: si el panel es mas alto que la pantalla, el

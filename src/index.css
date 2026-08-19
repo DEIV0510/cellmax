@@ -74,9 +74,14 @@
 }
 
 @layer components {
-  /* ---------- Superficies ---------- */
+  /* ---------- Superficies ----------
+     El desenfoque es un extra, nunca el responsable del contraste: en iOS se
+     desactiva si el usuario activa "Reducir transparencia", y con un fondo al
+     3% estas tarjetas se quedaban sin fondo visible. El color de base ya las
+     hace legibles por sí solo. */
   .glass {
-    @apply border border-white/10 bg-white/[0.035] backdrop-blur-xl;
+    @apply border border-white/10 backdrop-blur-xl;
+    background-color: rgba(14, 19, 32, 0.72);
   }
 
   .card-premium {
