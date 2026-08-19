@@ -71,11 +71,11 @@ export default function Gallery() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/45 to-transparent" />
 
-                <span className="absolute left-2.5 top-2.5 rounded-lg border border-white/15 bg-ink-950/70 px-2 py-1 text-[10.5px] font-bold uppercase tracking-wide text-steel-200 backdrop-blur sm:left-3 sm:top-3">
+                <span className="absolute left-2.5 top-2.5 rounded-lg border border-white/15 bg-ink-950/80 px-2 py-1 text-[10.5px] font-bold uppercase tracking-wide text-steel-200 sm:left-3 sm:top-3">
                   {item.tag}
                 </span>
 
-                <span className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-ink-950/60 text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+                <span className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-ink-950/80 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <Expand size={14} />
                 </span>
 

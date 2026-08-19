@@ -18,7 +18,13 @@ import Footer from './components/Footer'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
 import MobileTabBar from './components/MobileTabBar'
 import ProductModal from './components/ProductModal'
+import ErrorBoundary from './components/ErrorBoundary'
 import { useReveal } from './utils/useReveal'
+
+/** Cada seccion aislada: si una falla, el resto de la pagina sigue en pie. */
+const Seccion = ({ nombre, children }) => (
+  <ErrorBoundary name={nombre}>{children}</ErrorBoundary>
+)
 
 export default function App() {
   const [product, setProduct] = useState(null)
@@ -47,29 +53,33 @@ export default function App() {
         Ir al contenido
       </a>
 
-      <Header />
+      <Seccion nombre="Header">
+        <Header />
+      </Seccion>
 
       <main>
-        <Hero />
-        <TrustBar />
-        <Services />
-        <ScreenFinder onOpenProduct={openProduct} />
-        <Catalog onOpenProduct={openProduct} />
-        <Comparator />
-        <Process />
-        <Warranty />
-        <Gallery />
-        <Location />
-        <QuoteForm />
-        <Faq />
-        <Testimonials />
-        <FinalCta />
+        <Seccion nombre="Hero"><Hero /></Seccion>
+        <Seccion nombre="TrustBar"><TrustBar /></Seccion>
+        <Seccion nombre="Services"><Services /></Seccion>
+        <Seccion nombre="ScreenFinder"><ScreenFinder onOpenProduct={openProduct} /></Seccion>
+        <Seccion nombre="Catalog"><Catalog onOpenProduct={openProduct} /></Seccion>
+        <Seccion nombre="Comparator"><Comparator /></Seccion>
+        <Seccion nombre="Process"><Process /></Seccion>
+        <Seccion nombre="Warranty"><Warranty /></Seccion>
+        <Seccion nombre="Gallery"><Gallery /></Seccion>
+        <Seccion nombre="Location"><Location /></Seccion>
+        <Seccion nombre="QuoteForm"><QuoteForm /></Seccion>
+        <Seccion nombre="Faq"><Faq /></Seccion>
+        <Seccion nombre="Testimonials"><Testimonials /></Seccion>
+        <Seccion nombre="FinalCta"><FinalCta /></Seccion>
       </main>
 
-      <Footer />
-      <FloatingWhatsApp />
-      <MobileTabBar />
-      <ProductModal product={product} onClose={closeProduct} />
+      <Seccion nombre="Footer"><Footer /></Seccion>
+      <Seccion nombre="FloatingWhatsApp"><FloatingWhatsApp /></Seccion>
+      <Seccion nombre="MobileTabBar"><MobileTabBar /></Seccion>
+      <Seccion nombre="ProductModal">
+        <ProductModal product={product} onClose={closeProduct} />
+      </Seccion>
     </>
   )
 }

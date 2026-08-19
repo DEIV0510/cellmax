@@ -1,49 +1,126 @@
 import { useEffect } from 'react'
 
 /**
- * Anima con fade/slide-up los elementos con [data-reveal] cuando entran en pantalla.
+ * Activa el modo animacion. Se llama desde main.jsx ANTES de montar React.
  *
- * Observa tambien los nodos que aparecen DESPUES del montaje (resultados del buscador,
- * "ver mas referencias", etc.): sin esto se quedarian con opacity: 0 para siempre,
- * porque el efecto de App no se vuelve a ejecutar cuando cambia el estado de un hijo.
+ * Mientras el <html> no tenga `.js-reveal`, el CSS no oculta nada: si el script
+ * no llega a ejecutarse la pagina se ve completa. Solo activamos el modo cuando
+ * sabemos que el navegador puede volver a mostrar el contenido.
+ *
+ * En movil NO se activa nunca. Con el dedo se recorre mucha pagina por segundo
+ * y cualquier retraso en revelar se percibe como que la web no carga; ademas es
+ * donde mas caro sale un fallo de la animacion. El contenido se pinta directo.
+ */
+export function enableReveal() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return false
+  if (!('IntersectionObserver' in window)) return false
+  if (window.innerWidth < 1024) return false
+  try {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
+  } catch {
+    return false
+  }
+  document.documentElement.classList.add('js-reveal')
+  return true
+}
+
+const revelar = (el) => el.classList.add('is-revealed')
+const pendientes = () => document.querySelectorAll('[data-reveal]:not(.is-revealed)')
+
+/** Muestra todo y desactiva el modo animacion. Red de seguridad. */
+function revelarTodo() {
+  document.documentElement.classList.remove('js-reveal')
+  pendientes().forEach(revelar)
+}
+
+/**
+ * Anima con fade/slide-up los elementos con [data-reveal] al entrar en pantalla.
+ *
+ * Observa tambien los nodos que aparecen DESPUES del montaje (resultados del
+ * buscador, "ver mas referencias"), y lleva dos redes de seguridad para que sea
+ * imposible que quede contenido invisible:
+ *  - si algo falla, se muestra todo;
+ *  - a los 4 s se revela lo que siga pendiente por encima del pliegue.
  */
 export function useReveal() {
   useEffect(() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const revealAll = (root = document) =>
-      root.querySelectorAll?.('[data-reveal]:not(.is-revealed)')
-
-    if (reduce) {
-      const showAll = () => revealAll()?.forEach((n) => n.classList.add('is-revealed'))
-      showAll()
-      const mo = new MutationObserver(showAll)
-      mo.observe(document.body, { childList: true, subtree: true })
-      return () => mo.disconnect()
+    if (!document.documentElement.classList.contains('js-reveal')) {
+      pendientes().forEach(revelar)
+      return
     }
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          const el = entry.target
-          const delay = Number(el.dataset.revealDelay || 0)
-          window.setTimeout(() => el.classList.add('is-revealed'), delay)
-          io.unobserve(el)
-        })
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
-    )
+    let io
+    try {
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return
+            const el = entry.target
+            // El escalonado solo en escritorio: en movil retrasaria la
+            // aparicion de contenido que el usuario ya tiene delante.
+            const delay = window.innerWidth >= 1024 ? Number(el.dataset.revealDelay || 0) : 0
+            if (delay) window.setTimeout(() => revelar(el), delay)
+            else revelar(el)
+            io.unobserve(el)
+          })
+        },
+        // threshold 0: un elemento mas alto que la pantalla nunca llegaria a
+        // mostrar un porcentaje alto de si mismo y no se revelaria jamas.
+        // Margen amplio para que entren antes de asomar por el borde.
+        { rootMargin: '260px 0px 260px 0px', threshold: 0 }
+      )
+    } catch {
+      revelarTodo()
+      return
+    }
 
-    const observeNew = () => revealAll()?.forEach((n) => io.observe(n))
-    observeNew()
+    const observar = () => {
+      try {
+        pendientes().forEach((n) => io.observe(n))
+      } catch {
+        revelarTodo()
+      }
+    }
+    observar()
 
-    // Los elementos que React monta despues (buscador, paginacion) tambien se observan.
-    const mo = new MutationObserver(observeNew)
-    mo.observe(document.body, { childList: true, subtree: true })
+    // Nodos que React monta despues del primer render
+    let mo
+    try {
+      mo = new MutationObserver(observar)
+      mo.observe(document.body, { childList: true, subtree: true })
+    } catch {
+      /* sin MutationObserver el reveal inicial sigue funcionando */
+    }
+
+    /**
+     * Red de seguridad contra el scroll rapido.
+     *
+     * Con un desliz fuerte, un elemento puede entrar y salir de pantalla entre
+     * dos avisos del observador y no marcarse nunca: se quedaria invisible para
+     * siempre. Aqui se revela TODO lo que ya quedo por encima del pliegue —sin
+     * limite por abajo, para no dejar atras nada de lo que el dedo se salto.
+     */
+    const rescatar = () => {
+      const restantes = pendientes()
+      if (!restantes.length) {
+        window.clearInterval(rescate)
+        return
+      }
+      const alto = window.innerHeight
+      restantes.forEach((el) => {
+        if (el.getBoundingClientRect().top < alto * 1.2) revelar(el)
+      })
+    }
+    const rescate = window.setInterval(rescatar, 700)
+    window.addEventListener('scroll', rescatar, { passive: true })
+
+    const rescateFinal = window.setTimeout(revelarTodo, 15000)
 
     return () => {
-      mo.disconnect()
+      window.clearInterval(rescate)
+      window.clearTimeout(rescateFinal)
+      window.removeEventListener('scroll', rescatar)
+      mo?.disconnect()
       io.disconnect()
     }
   }, [])

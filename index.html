@@ -155,6 +155,20 @@
       </div>
     </div>
 
+    <script>
+      // Red de seguridad: si el script principal no llegara a montar la app,
+      // la pantalla de carga se retira igual y nunca deja la web tapada.
+      setTimeout(function () {
+        var l = document.getElementById('cm-loader')
+        if (l) {
+          l.classList.add('is-done')
+          setTimeout(function () {
+            if (l.parentNode) l.parentNode.removeChild(l)
+          }, 700)
+        }
+      }, 6000)
+    </script>
+
     <div id="root"></div>
     <noscript>
       <div style="padding: 32px; color: #fff; font-family: sans-serif; background: #04060b">

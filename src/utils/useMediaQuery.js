@@ -1,17 +1,37 @@
 import { useEffect, useState } from 'react'
 
-/** Devuelve true mientras la media query se cumpla. Reacciona al redimensionar. */
+/**
+ * Devuelve true mientras la media query se cumpla. Reacciona al redimensionar.
+ * Usa addListener como respaldo: addEventListener sobre MediaQueryList no existe
+ * en Safari anterior a 14, y ahi una excepcion tumbaria el componente entero.
+ */
 export function useMediaQuery(query) {
-  const [matches, setMatches] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia(query).matches : false
-  )
+  const [matches, setMatches] = useState(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return false
+    try {
+      return window.matchMedia(query).matches
+    } catch {
+      return false
+    }
+  })
 
   useEffect(() => {
-    const mq = window.matchMedia(query)
+    if (!window.matchMedia) return
+    let mq
+    try {
+      mq = window.matchMedia(query)
+    } catch {
+      return
+    }
     const onChange = (e) => setMatches(e.matches)
     setMatches(mq.matches)
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
+
+    if (mq.addEventListener) {
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    }
+    mq.addListener(onChange)
+    return () => mq.removeListener(onChange)
   }, [query])
 
   return matches

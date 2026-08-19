@@ -37,7 +37,7 @@ export default function ProductCard({ product, onOpen }) {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/10 to-transparent" />
         )}
         <span
-          className={`absolute left-2 top-2 rounded-md border px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wide backdrop-blur sm:left-3 sm:top-3 sm:rounded-lg sm:px-2 sm:py-1 sm:tracking-wider ${accent}`}
+          className={`absolute left-2 top-2 rounded-md border px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wide sm:left-3 sm:top-3 sm:rounded-lg sm:px-2 sm:py-1 sm:tracking-wider ${accent}`}
         >
           <span className="sm:hidden">{SHORT[product.type] || product.type}</span>
           <span className="hidden sm:inline">{product.type}</span>
