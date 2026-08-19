@@ -125,6 +125,11 @@ function CatalogBlock({ block, onOpenProduct, defaultOpen = false }) {
                   <span className="text-[11.5px] text-steel-500">
                     {items.length} referencias
                   </span>
+                  {!isDesktop && (
+                    <span className="text-[11.5px] font-semibold text-electric-300">
+                      {open ? 'Ocultar precios' : 'Ver precios'}
+                    </span>
+                  )}
                 </span>
               </span>
               {!isDesktop && (
@@ -157,10 +162,11 @@ function CatalogBlock({ block, onOpenProduct, defaultOpen = false }) {
           </div>
         </div>
 
-        {/* Tabla (desktop) / tarjetas (movil) */}
+        {/* Tabla (escritorio) o tarjetas (movil): solo se monta la variante que
+            corresponde. Renderizar las dos duplicaba cientos de nodos por bloque. */}
         <div id={panelId} className={`${open ? 'block' : 'hidden'} p-4 sm:p-6`}>
-          {/* Desktop */}
-          <div className="hidden md:block">
+          {open && isDesktop && (
+          <div>
             <table className="w-full border-separate border-spacing-y-1.5">
               <caption className="sr-only">{block.title} — modelos y precios</caption>
               <thead>
@@ -225,9 +231,10 @@ function CatalogBlock({ block, onOpenProduct, defaultOpen = false }) {
               </tbody>
             </table>
           </div>
+          )}
 
-          {/* Movil: la tabla se convierte en tarjetas */}
-          <div className="grid grid-cols-2 gap-2.5 md:hidden">
+          {open && !isDesktop && (
+          <div className="grid grid-cols-2 gap-2.5">
             {shown.map((p) => (
               <div
                 key={p.id}
@@ -264,8 +271,9 @@ function CatalogBlock({ block, onOpenProduct, defaultOpen = false }) {
               </div>
             ))}
           </div>
+          )}
 
-          {items.length > VISIBLE && (
+          {open && items.length > VISIBLE && (
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}

@@ -102,8 +102,12 @@ export default function Hero() {
           {/* Imagen real del negocio */}
           <div className="relative" data-reveal="zoom" data-reveal-delay="140">
             <div className="relative overflow-hidden rounded-[22px] border border-white/10 shadow-glow">
+              {/* En movil se descarga la version reducida: la grande son 98 KB
+                  que ademas hay que decodificar en la primera pantalla. */}
               <img
                 src={IMG.hero.src}
+                srcSet={`${IMG.hero.sm} 720w, ${IMG.hero.src} 1600w`}
+                sizes="(max-width: 1023px) 100vw, 46vw"
                 alt={IMG.hero.alt}
                 width={1355}
                 height={746}

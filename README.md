@@ -145,6 +145,25 @@ inventada del producto.
 
 ---
 
+## Rendimiento
+
+Decisiones tomadas para que la web vaya bien en un celular de gama media:
+
+- **El mapa se carga solo si lo piden.** El iframe de Google pesa cientos de KB;
+  hasta que el visitante pulsa "Ver mapa" solo hay un marcador ligero. La mayoría
+  usa "Cómo llegar" y nunca lo necesita.
+- **Cada bloque del catálogo monta una sola variante**: la tabla en escritorio o
+  las tarjetas en móvil, nunca las dos. Renderizar ambas duplicaba cientos de
+  nodos por categoría.
+- **En móvil las categorías cerradas no se montan**, solo la que está abierta.
+- **Sin animación de entrada en móvil**: el contenido se pinta directo. Con el dedo
+  se recorre mucha página por segundo y cualquier retraso se percibe como que la
+  web no carga.
+- La imagen del hero se sirve reducida en móvil mediante `srcset`.
+
+Resultado en iPhone 13 con CPU 4x más lenta y 4G: primer pintado ~750 ms y 1.595
+nodos en el DOM (antes 2.324).
+
 ## Contacto del negocio
 
 - WhatsApp: **318 582 0627** → `https://wa.me/573185820627`

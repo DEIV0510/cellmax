@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { MapPin, Navigation, MessageCircle, Building2, Phone, Instagram } from 'lucide-react'
 import Section, { SectionHead } from './Section'
 import { site, mapsSearchUrl, mapsEmbedUrl } from '../data/site'
@@ -10,6 +11,55 @@ const DETAILS = [
   { icon: Navigation, label: 'Piso y locales', value: `${site.address.floor}, ${site.address.locals}` },
   { icon: Phone, label: 'WhatsApp', value: site.phoneDisplay },
 ]
+
+/**
+ * El mapa incrustado de Google carga cientos de KB y bastante JavaScript.
+ * Se monta solo cuando el visitante lo pide: hasta entonces se muestra un
+ * marcador ligero. La mayoria usa "Cómo llegar" y nunca necesita el mapa.
+ */
+function Mapa() {
+  const [activo, setActivo] = useState(false)
+
+  if (activo) {
+    return (
+      <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10 bg-ink-900">
+        <iframe
+          title={`Ubicación de Cell Max en ${site.address.cityAccented}`}
+          src={mapsEmbedUrl}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="h-52 w-full sm:h-full sm:min-h-[240px]"
+          style={{ border: 0, filter: 'grayscale(0.85) contrast(1.12) brightness(0.6)' }}
+        />
+      </div>
+    )
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => setActivo(true)}
+      className="group relative flex h-52 flex-1 flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-white/10 bg-ink-900 transition-colors hover:border-electric-500/45 sm:min-h-[240px]"
+      aria-label="Cargar el mapa de la ubicación"
+    >
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 bg-grid-tech [background-size:34px_34px] opacity-50"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-electric-500/15 blur-3xl"
+      />
+      <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-electric-500/15 text-electric-300 transition-transform duration-300 group-hover:scale-110">
+        <MapPin size={22} />
+      </span>
+      <span className="relative text-[14px] font-semibold text-white">Ver mapa</span>
+      <span className="relative text-[12px] text-steel-400">
+        {site.address.place} · {site.address.cityAccented}
+      </span>
+    </button>
+  )
+}
 
 export default function Location() {
   return (
@@ -94,6 +144,8 @@ export default function Location() {
             <div className="relative overflow-hidden rounded-2xl border border-white/10">
               <img
                 src={IMG.local.src}
+                srcSet={`${IMG.local.sm} 405w, ${IMG.local.src} 900w`}
+                sizes="(max-width: 1023px) 100vw, 40vw"
                 alt={IMG.local.alt}
                 loading="lazy"
                 decoding="async"
@@ -105,16 +157,7 @@ export default function Location() {
               </p>
             </div>
 
-            <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10 bg-ink-900">
-              <iframe
-                title={`Ubicación de Cell Max en ${site.address.cityAccented}`}
-                src={mapsEmbedUrl}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-52 w-full sm:h-full sm:min-h-[240px]"
-                style={{ border: 0, filter: 'grayscale(0.85) contrast(1.12) brightness(0.6)' }}
-              />
-            </div>
+            <Mapa />
           </div>
         </div>
       </div>

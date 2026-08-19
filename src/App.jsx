@@ -33,15 +33,14 @@ export default function App() {
   const openProduct = useCallback((p) => setProduct(p), [])
   const closeProduct = useCallback(() => setProduct(null), [])
 
-  // Oculta la pantalla de carga cuando la app ya esta montada
+  // Avisa a la pantalla de carga en cuanto la pagina se puede usar.
+  // El cierre y la animacion los gestiona el script de index.html, que existe
+  // aunque este bundle falle.
   useEffect(() => {
-    const loader = document.getElementById('cm-loader')
-    if (!loader) return
-    const t = window.setTimeout(() => {
-      loader.classList.add('is-done')
-      window.setTimeout(() => loader.remove(), 650)
-    }, 550)
-    return () => window.clearTimeout(t)
+    const cerrar = () => window.cmLoaderDone?.()
+    // Un frame para que el primer render este pintado antes de descubrirlo
+    const id = window.requestAnimationFrame(() => window.requestAnimationFrame(cerrar))
+    return () => window.cancelAnimationFrame(id)
   }, [])
 
   return (

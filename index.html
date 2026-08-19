@@ -17,6 +17,9 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+    <!-- El logo de la pantalla de carga es lo primero que se ve: maxima prioridad -->
+    <link rel="preload" as="image" href="/cm-logo.webp" fetchpriority="high" />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_CO" />
@@ -83,90 +86,231 @@
     </script>
 
     <style>
-      /* Pantalla de carga: se pinta antes de que React monte */
+      /* ---------- Pantalla de carga ----------
+         Se pinta antes de que React monte, con el logo real de Cell Max.
+         El progreso es REAL: avanza con las fuentes y las imágenes del hero,
+         no es una barra decorativa que finge actividad. */
       #cm-loader {
         position: fixed;
         inset: 0;
         z-index: 9999;
         display: grid;
         place-items: center;
+        overflow: hidden;
         background:
           radial-gradient(120% 90% at 50% 0%, #0b1a2e 0%, #04060b 62%),
           #04060b;
-        transition: opacity 0.55s ease, visibility 0.55s ease;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
       }
       #cm-loader.is-done {
         opacity: 0;
         visibility: hidden;
       }
+
+      /* Rejilla técnica de fondo */
+      #cm-loader::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+        background-size: 46px 46px;
+        mask-image: radial-gradient(70% 60% at 50% 45%, #000 0%, transparent 100%);
+        -webkit-mask-image: radial-gradient(70% 60% at 50% 45%, #000 0%, transparent 100%);
+      }
+
       .cm-loader-inner {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 26px;
+        gap: 22px;
+        padding: 0 24px;
       }
-      .cm-loader-inner img {
-        width: 132px;
+
+      /* Logo con anillo de escaneo */
+      .cm-logo-wrap {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 168px;
+        height: 168px;
+      }
+      .cm-logo-wrap img {
+        position: relative;
+        width: 116px;
         height: auto;
-        filter: drop-shadow(0 0 26px rgba(10, 132, 255, 0.45));
-        animation: cmPop 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+        filter: drop-shadow(0 0 24px rgba(10, 132, 255, 0.5));
+        animation: cmPop 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
       }
-      .cm-loader-bar {
-        width: 190px;
-        height: 3px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        overflow: hidden;
+      .cm-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.07);
       }
-      .cm-loader-bar span {
-        display: block;
-        height: 100%;
-        width: 40%;
-        border-radius: 999px;
-        background: linear-gradient(90deg, #0a84ff, #6bb2ff, #d4af37);
-        animation: cmBar 1.1s cubic-bezier(0.6, 0.05, 0.3, 1) infinite;
+      .cm-ring::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        border-top-color: #0a84ff;
+        border-right-color: rgba(212, 175, 55, 0.75);
+        animation: cmSpin 1.15s linear infinite;
       }
-      .cm-loader-text {
+      .cm-ring-2 {
+        position: absolute;
+        inset: 22px;
+        border-radius: 50%;
+        border: 1px dashed rgba(10, 132, 255, 0.18);
+        animation: cmSpin 4.5s linear infinite reverse;
+      }
+
+      /* Marca */
+      .cm-loader-name {
         font-family: Sora, system-ui, sans-serif;
-        font-size: 11px;
-        letter-spacing: 0.32em;
-        color: rgba(214, 219, 228, 0.55);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        color: #fff;
         text-transform: uppercase;
       }
-      @keyframes cmPop {
-        from { opacity: 0; transform: translateY(14px) scale(0.94); }
-        to { opacity: 1; transform: none; }
+      .cm-loader-sub {
+        margin-top: -14px;
+        font-family: Sora, system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-indent: 0.3em;
+        text-transform: uppercase;
+        background: linear-gradient(100deg, #f4e2a8, #d4af37 55%, #b08d22);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
-      @keyframes cmBar {
-        0% { transform: translateX(-110%); }
-        100% { transform: translateX(360%); }
+
+      /* Barra de progreso real */
+      .cm-loader-bar {
+        position: relative;
+        width: min(216px, 62vw);
+        height: 2px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.09);
+        overflow: hidden;
+      }
+      .cm-loader-bar i {
+        display: block;
+        height: 100%;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #0a84ff, #6bb2ff 60%, #d4af37);
+        box-shadow: 0 0 12px rgba(10, 132, 255, 0.75);
+        transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .cm-loader-pct {
+        font-family: Sora, system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        color: rgba(138, 148, 166, 0.9);
+      }
+
+      @keyframes cmPop {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.94);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes cmSpin {
+        to {
+          transform: rotate(360deg);
+        }
       }
       @media (prefers-reduced-motion: reduce) {
-        .cm-loader-inner img, .cm-loader-bar span { animation: none; }
+        .cm-logo-wrap img,
+        .cm-ring::after,
+        .cm-ring-2 {
+          animation: none;
+        }
       }
     </style>
   </head>
   <body>
-    <div id="cm-loader" role="status" aria-label="Cargando Cell Max">
+    <div id="cm-loader" role="status" aria-live="polite" aria-label="Cargando Cell Max">
       <div class="cm-loader-inner">
-        <img src="/cm-logo.webp" alt="Cell Max" width="132" height="115" />
-        <div class="cm-loader-bar"><span></span></div>
-        <p class="cm-loader-text">Cell Max &middot; Apple Repair</p>
+        <div class="cm-logo-wrap">
+          <span class="cm-ring" aria-hidden="true"></span>
+          <span class="cm-ring-2" aria-hidden="true"></span>
+          <img src="/cm-logo.webp" alt="Cell Max" width="116" height="101" />
+        </div>
+        <p class="cm-loader-name">Cell Max</p>
+        <p class="cm-loader-sub">Apple Repair</p>
+        <div class="cm-loader-bar"><i id="cm-bar"></i></div>
+        <p class="cm-loader-pct"><span id="cm-pct">0</span>%</p>
       </div>
     </div>
 
     <script>
-      // Red de seguridad: si el script principal no llegara a montar la app,
-      // la pantalla de carga se retira igual y nunca deja la web tapada.
-      setTimeout(function () {
-        var l = document.getElementById('cm-loader')
-        if (l) {
-          l.classList.add('is-done')
-          setTimeout(function () {
-            if (l.parentNode) l.parentNode.removeChild(l)
-          }, 700)
+      ;(function () {
+        var barra = document.getElementById('cm-bar')
+        var pct = document.getElementById('cm-pct')
+        var valor = 0
+        var cerrado = false
+
+        function pintar(n) {
+          n = Math.max(valor, Math.min(100, Math.round(n)))
+          if (n === valor) return
+          valor = n
+          if (barra) barra.style.width = n + '%'
+          if (pct) pct.textContent = n
         }
-      }, 6000)
+
+        // Progreso REAL: cuenta los recursos que el navegador ya descargó.
+        // Nunca finge llegar al 100%: eso lo hace la app cuando ya se puede usar.
+        function medir() {
+          if (cerrado) return
+          var listo = 0
+          if (document.readyState === 'interactive') listo = 45
+          if (document.readyState === 'complete') listo = 92
+          try {
+            var r = performance.getEntriesByType('resource').length
+            listo = Math.max(listo, Math.min(92, 12 + r * 7))
+          } catch (e) {}
+          pintar(listo)
+        }
+
+        var tic = setInterval(medir, 90)
+        medir()
+
+        // La app avisa en cuanto la página se puede usar
+        window.cmLoaderDone = function () {
+          if (cerrado) return
+          cerrado = true
+          clearInterval(tic)
+          pintar(100)
+          var l = document.getElementById('cm-loader')
+          if (!l) return
+          setTimeout(function () {
+            l.classList.add('is-done')
+            setTimeout(function () {
+              if (l.parentNode) l.parentNode.removeChild(l)
+            }, 600)
+          }, 180)
+        }
+
+        // Red de seguridad: si el script principal no llegara a montar la app,
+        // la pantalla de carga se retira igual y nunca deja la web tapada.
+        setTimeout(function () {
+          window.cmLoaderDone()
+        }, 5000)
+      })()
     </script>
 
     <div id="root"></div>
