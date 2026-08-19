@@ -312,6 +312,17 @@
     </script>
 
     <div id="root"></div>
+    <script>
+      // El build deja la primera pantalla ya pintada dentro de #root. Aqui ya
+      // esta parseada y con el CSS del <head> aplicado, asi que la web se puede
+      // ver: no hay que esperar a que React se descargue y monte. Los botones de
+      // WhatsApp son enlaces normales y ya funcionan.
+      ;(function () {
+        var root = document.getElementById('root')
+        if (root && root.firstChild && window.cmLoaderDone) window.cmLoaderDone()
+      })()
+    </script>
+
     <noscript>
       <div style="padding: 32px; color: #fff; font-family: sans-serif; background: #04060b">
         <h1>Cell Max — Apple Repair</h1>

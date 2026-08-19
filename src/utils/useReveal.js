@@ -20,6 +20,20 @@ export function enableReveal() {
   } catch {
     return false
   }
+
+  // El build deja la primera pantalla ya pintada en el HTML. Lo que el visitante
+  // YA está viendo se marca como revelado antes de activar el modo animacion:
+  // de lo contrario parpadearia, desapareciendo para volver a entrar.
+  try {
+    const alto = window.innerHeight
+    document.querySelectorAll('[data-reveal]').forEach((el) => {
+      const r = el.getBoundingClientRect()
+      if (r.top < alto && r.bottom > 0) el.classList.add('is-revealed')
+    })
+  } catch {
+    /* sin DOM que marcar, seguimos */
+  }
+
   document.documentElement.classList.add('js-reveal')
   return true
 }

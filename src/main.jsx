@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import App from './App'
 import { enableReveal } from './utils/useReveal'
 import './index.css'
@@ -8,8 +8,14 @@ import './index.css'
 // Si este script no llegara a ejecutarse, el CSS no oculta nada y la web se ve completa.
 enableReveal()
 
-createRoot(document.getElementById('root')).render(
+const raiz = document.getElementById('root')
+const arbol = (
   <StrictMode>
     <App />
   </StrictMode>
 )
+
+// El build deja la primera pantalla ya pintada dentro de #root: si hay contenido,
+// se hidrata en vez de volver a construirlo desde cero.
+if (raiz.hasChildNodes()) hydrateRoot(raiz, arbol)
+else createRoot(raiz).render(arbol)

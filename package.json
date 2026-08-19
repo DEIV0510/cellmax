@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/check-classes.mjs && vite build",
+    "build": "node scripts/check-classes.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
     "images": "node scripts/process-images.mjs",
-    "check": "node scripts/check-classes.mjs"
+    "check": "node scripts/check-classes.mjs",
+    "build:client": "vite build"
   },
   "dependencies": {
     "lucide-react": "^0.469.0",

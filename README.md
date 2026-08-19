@@ -178,6 +178,30 @@ Medido en iPhone 13 con CPU 4x más lenta y 4G:
 | Primer pintado | 824 ms | **700 ms** |
 | Nodos en el DOM | 2.324 | **1.628** |
 
+## Pre-renderizado de la primera pantalla
+
+`npm run build` compila el cliente, compila una versión de servidor y ejecuta
+`scripts/prerender.mjs`, que corre la app en Node e incrusta su HTML dentro de
+`<div id="root">`. El visitante ve encabezado, hero y barra de confianza en
+cuanto llegan el HTML y el CSS, sin esperar a descargar ni ejecutar React.
+
+Antes, React tardaba en montar y hasta que no terminaba no se podía retirar la
+pantalla de carga: eran 3,9 s de logo girando en 4G con la web ya descargada.
+Ahora la web se ve en 1,2 s.
+
+Detalles que hacen que funcione:
+
+- Todo lo que va dentro de `<Diferido>` queda fuera del pre-renderizado: en Node
+  devuelve `null` y lo monta el navegador un instante después, así que no hay
+  desajuste al hidratar.
+- El loader se cierra desde un script colocado **después** de `#root`, no en
+  `DOMContentLoaded`: los `<script type="module">` se ejecutan antes de ese
+  evento, así que esperarlo equivalía a esperar a React igualmente.
+- `enableReveal()` marca como ya reveladas las secciones que se ven al cargar,
+  para que el contenido pre-renderizado no parpadee al activar las animaciones.
+
+---
+
 ## Compatibilidad
 
 El proyecto declara un `browserslist` explícito en `package.json`. No es un
