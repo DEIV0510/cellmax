@@ -60,7 +60,7 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-white/10 bg-ink-950 backdrop-blur-xl shadow-[0_10px_40px_-24px_rgba(0,0,0,1)] lg:bg-ink-950/95'
+          ? 'border-b border-white/10 bg-ink-950 shadow-[0_10px_40px_-24px_rgba(0,0,0,1)] lg:bg-ink-950/95 lg:backdrop-blur-xl'
           : 'border-b border-transparent bg-gradient-to-b from-ink-950/80 to-transparent'
       }`}
     >
@@ -147,7 +147,7 @@ export default function Header() {
       {/* Menu movil. Cerrado: fuera del arbol de accesibilidad y del orden de tabulacion. */}
       <div
         aria-hidden={!open}
-        className={`overflow-hidden border-t border-white/10 bg-ink-950 backdrop-blur-2xl transition-[max-height,opacity] duration-500 lg:hidden ${
+        className={`overflow-hidden border-t border-white/10 bg-ink-950 transition-[max-height,opacity] duration-500 lg:hidden ${
           open ? 'max-h-[520px] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
         }`}
       >

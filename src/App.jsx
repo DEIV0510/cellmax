@@ -19,6 +19,7 @@ import FloatingWhatsApp from './components/FloatingWhatsApp'
 import MobileTabBar from './components/MobileTabBar'
 import ProductModal from './components/ProductModal'
 import ErrorBoundary from './components/ErrorBoundary'
+import Diferido from './components/Diferido'
 import { useReveal } from './utils/useReveal'
 
 /** Cada seccion aislada: si una falla, el resto de la pagina sigue en pie. */
@@ -39,7 +40,7 @@ export default function App() {
   useEffect(() => {
     const cerrar = () => window.cmLoaderDone?.()
     // Un frame para que el primer render este pintado antes de descubrirlo
-    const id = window.requestAnimationFrame(() => window.requestAnimationFrame(cerrar))
+    const id = window.requestAnimationFrame(cerrar)
     return () => window.cancelAnimationFrame(id)
   }, [])
 
@@ -57,25 +58,35 @@ export default function App() {
       </Seccion>
 
       <main>
+        {/* Primera pantalla: se monta de inmediato */}
         <Seccion nombre="Hero"><Hero /></Seccion>
         <Seccion nombre="TrustBar"><TrustBar /></Seccion>
-        <Seccion nombre="Services"><Services /></Seccion>
-        <Seccion nombre="ScreenFinder"><ScreenFinder onOpenProduct={openProduct} /></Seccion>
-        <Seccion nombre="Catalog"><Catalog onOpenProduct={openProduct} /></Seccion>
-        <Seccion nombre="Comparator"><Comparator /></Seccion>
-        <Seccion nombre="Process"><Process /></Seccion>
-        <Seccion nombre="Warranty"><Warranty /></Seccion>
-        <Seccion nombre="Gallery"><Gallery /></Seccion>
-        <Seccion nombre="Location"><Location /></Seccion>
-        <Seccion nombre="QuoteForm"><QuoteForm /></Seccion>
-        <Seccion nombre="Faq"><Faq /></Seccion>
-        <Seccion nombre="Testimonials"><Testimonials /></Seccion>
-        <Seccion nombre="FinalCta"><FinalCta /></Seccion>
+
+        {/* El resto entra en el tick siguiente, con el hero ya en pantalla */}
+        <Diferido>
+          <Seccion nombre="Services"><Services /></Seccion>
+          <Seccion nombre="ScreenFinder"><ScreenFinder onOpenProduct={openProduct} /></Seccion>
+          <Seccion nombre="Catalog"><Catalog onOpenProduct={openProduct} /></Seccion>
+          <Seccion nombre="Comparator"><Comparator /></Seccion>
+          <Seccion nombre="Process"><Process /></Seccion>
+          <Seccion nombre="Warranty"><Warranty /></Seccion>
+          <Seccion nombre="Gallery"><Gallery /></Seccion>
+          <Seccion nombre="Location"><Location /></Seccion>
+          <Seccion nombre="QuoteForm"><QuoteForm /></Seccion>
+          <Seccion nombre="Faq"><Faq /></Seccion>
+          <Seccion nombre="Testimonials"><Testimonials /></Seccion>
+          <Seccion nombre="FinalCta"><FinalCta /></Seccion>
+        </Diferido>
       </main>
 
-      <Seccion nombre="Footer"><Footer /></Seccion>
-      <Seccion nombre="FloatingWhatsApp"><FloatingWhatsApp /></Seccion>
+      {/* La barra inferior es navegación: se monta ya, no diferida */}
       <Seccion nombre="MobileTabBar"><MobileTabBar /></Seccion>
+
+      <Diferido>
+        <Seccion nombre="Footer"><Footer /></Seccion>
+        <Seccion nombre="FloatingWhatsApp"><FloatingWhatsApp /></Seccion>
+      </Diferido>
+
       <Seccion nombre="ProductModal">
         <ProductModal product={product} onClose={closeProduct} />
       </Seccion>

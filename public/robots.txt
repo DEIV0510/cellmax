@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cellmax.vercel.app/sitemap.xml
+Sitemap: https://cellmax-deiv0510s-projects.vercel.app/sitemap.xml

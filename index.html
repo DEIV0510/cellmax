@@ -12,7 +12,7 @@
     />
     <meta name="author" content="Cell Max" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://cellmax.vercel.app/" />
+    <link rel="canonical" href="https://cellmax-deiv0510s-projects.vercel.app/" />
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -32,10 +32,10 @@
       property="og:description"
       content="Pantallas INCELL Premium HD Plus, OLED Soft y pantallas originales de Samsung. Servicio técnico especializado en Cúcuta, C.C. Alejandrina."
     />
-    <meta property="og:image" content="https://cellmax.vercel.app/og-cellmax.jpg" />
+    <meta property="og:image" content="https://cellmax-deiv0510s-projects.vercel.app/og-cellmax.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://cellmax.vercel.app/" />
+    <meta property="og:url" content="https://cellmax-deiv0510s-projects.vercel.app/" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -44,7 +44,7 @@
       name="twitter:description"
       content="Pantallas INCELL, OLED Soft y Samsung. Servicio técnico especializado en Cúcuta."
     />
-    <meta name="twitter:image" content="https://cellmax.vercel.app/og-cellmax.jpg" />
+    <meta name="twitter:image" content="https://cellmax-deiv0510s-projects.vercel.app/og-cellmax.jpg" />
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -62,8 +62,8 @@
         "name": "Cell Max",
         "alternateName": "Cell Max Apple Repair",
         "description": "Reparación de celulares, pantallas para iPhone (INCELL Premium HD Plus y OLED Soft), pantallas originales de Samsung, repuestos, accesorios y servicio técnico en Cúcuta.",
-        "image": "https://cellmax.vercel.app/og-cellmax.jpg",
-        "url": "https://cellmax.vercel.app/",
+        "image": "https://cellmax-deiv0510s-projects.vercel.app/og-cellmax.jpg",
+        "url": "https://cellmax-deiv0510s-projects.vercel.app/",
         "telephone": "+573185820627",
         "priceRange": "$$",
         "address": {
@@ -100,7 +100,7 @@
         background:
           radial-gradient(120% 90% at 50% 0%, #0b1a2e 0%, #04060b 62%),
           #04060b;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
+        transition: opacity 0.32s ease, visibility 0.32s ease;
       }
       #cm-loader.is-done {
         opacity: 0;
@@ -297,12 +297,10 @@
           pintar(100)
           var l = document.getElementById('cm-loader')
           if (!l) return
+          l.classList.add('is-done')
           setTimeout(function () {
-            l.classList.add('is-done')
-            setTimeout(function () {
-              if (l.parentNode) l.parentNode.removeChild(l)
-            }, 600)
-          }, 180)
+            if (l.parentNode) l.parentNode.removeChild(l)
+          }, 380)
         }
 
         // Red de seguridad: si el script principal no llegara a montar la app,

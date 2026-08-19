@@ -13,7 +13,7 @@ export default function MobileTabBar() {
   return (
     <nav
       aria-label="Navegación rápida"
-      className="fixed inset-x-0 bottom-0 z-[45] border-t border-white/10 bg-ink-950 pb-safe backdrop-blur-2xl lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-[45] border-t border-white/10 bg-ink-950 pb-safe lg:hidden"
     >
       <ul className="grid grid-cols-4">
         {TABS.map(({ href, label, icon: Icon, external }) => {
