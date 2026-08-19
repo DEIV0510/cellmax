@@ -31,6 +31,37 @@ const JOBS = [
   ['pantallas5.png', 'catOriginal', 760, 82],
 ]
 
+/**
+ * Imagenes que se ven en la primera pantalla: se generan en varios anchos y
+ * tambien en AVIF, que pesa un 40% menos que WebP con la misma calidad.
+ * En un movil con pantalla 3x, sin estos tamanos el navegador se descarga la
+ * version de 1600px para pintarla a 350.
+ */
+const CRITICAS = [
+  ['logo.png', 'hero', [480, 1100, 1600]],
+]
+
+const generarCriticas = async () => {
+  for (const [from, name, anchos] of CRITICAS) {
+    const input = join(SRC, from)
+    if (!existsSync(input)) continue
+    for (const w of anchos) {
+      const sufijo = w === Math.max(...anchos) ? '' : `-${w}`
+      await sharp(input)
+        .resize({ width: w, withoutEnlargement: true })
+        .avif({ quality: w > 900 ? 52 : 55, effort: 4 })
+        .toFile(join(OUT, `${name}${sufijo}.avif`))
+      if (sufijo) {
+        await sharp(input)
+          .resize({ width: w, withoutEnlargement: true })
+          .webp({ quality: 78, effort: 6 })
+          .toFile(join(OUT, `${name}${sufijo}.webp`))
+      }
+    }
+    console.log(`  ok ${name}: ${anchos.join('/')} px en avif + webp`)
+  }
+}
+
 const run = async () => {
   for (const [from, name, width, quality] of JOBS) {
     const input = join(SRC, from)
@@ -38,17 +69,30 @@ const run = async () => {
       console.warn(`  ! falta ${from}`)
       continue
     }
+    const anchoSm = Math.round(width * 0.45)
+    // Cada imagen sale en WebP y en AVIF. AVIF pesa un 40% menos con la misma
+    // calidad; el navegador que no lo soporte usa el WebP sin enterarse.
     await sharp(input)
       .resize({ width, withoutEnlargement: true })
       .webp({ quality, effort: 6 })
       .toFile(join(OUT, `${name}.webp`))
+    await sharp(input)
+      .resize({ width, withoutEnlargement: true })
+      .avif({ quality: 52, effort: 4 })
+      .toFile(join(OUT, `${name}.avif`))
     // Version pequena para tarjetas / lazy grid
     await sharp(input)
-      .resize({ width: Math.round(width * 0.45), withoutEnlargement: true })
+      .resize({ width: anchoSm, withoutEnlargement: true })
       .webp({ quality: 74, effort: 6 })
       .toFile(join(OUT, `${name}-sm.webp`))
-    console.log(`  ok ${from} -> ${name}.webp`)
+    await sharp(input)
+      .resize({ width: anchoSm, withoutEnlargement: true })
+      .avif({ quality: 50, effort: 4 })
+      .toFile(join(OUT, `${name}-sm.avif`))
+    console.log(`  ok ${from} -> ${name} (webp + avif)`)
   }
+
+  await generarCriticas()
 
   // --- Logo CM recortado del material oficial, con fondo negro convertido a transparente ---
   const logoSrc = join(SRC, '2.png')
@@ -96,8 +140,10 @@ const run = async () => {
       .composite([{ input: mark, gravity: 'centre' }])
       .png()
       .toBuffer()
-    await sharp(icon).toFile(join(PUB, 'favicon.png'))
-    await sharp(icon).resize(180).png().toFile(join(PUB, 'apple-touch-icon.png'))
+    // 96px basta para la pestaña: a 512 el archivo se iba a 79 KB y el
+    // navegador lo descarga en TODAS las visitas.
+    await sharp(icon).resize(96).png({ compressionLevel: 9, palette: true }).toFile(join(PUB, 'favicon.png'))
+    await sharp(icon).resize(180).png({ compressionLevel: 9 }).toFile(join(PUB, 'apple-touch-icon.png'))
     console.log('  ok favicon -> public/favicon.png')
   }
 

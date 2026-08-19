@@ -1,5 +1,5 @@
 import { MessageCircle, ArrowRight, ShieldCheck, Sparkles, Wrench, HeartHandshake, MapPin } from 'lucide-react'
-import { IMG } from '../utils/images'
+import { IMG, HERO_SET } from '../utils/images'
 import { wa, MESSAGES } from '../utils/whatsapp'
 import { site } from '../data/site'
 
@@ -102,19 +102,22 @@ export default function Hero() {
           {/* Imagen real del negocio */}
           <div className="relative" data-reveal="zoom" data-reveal-delay="140">
             <div className="relative overflow-hidden rounded-[22px] border border-white/10 shadow-glow">
-              {/* En movil se descarga la version reducida: la grande son 98 KB
-                  que ademas hay que decodificar en la primera pantalla. */}
-              <img
-                src={IMG.hero.src}
-                srcSet={`${IMG.hero.sm} 720w, ${IMG.hero.src} 1600w`}
-                sizes="(max-width: 1023px) 100vw, 46vw"
-                alt={IMG.hero.alt}
-                width={1355}
-                height={746}
-                fetchpriority="high"
-                decoding="async"
-                className="w-full object-cover"
-              />
+              {/* Imagen de la primera pantalla: AVIF con respaldo WebP y tres
+                  anchos. Sin esto un movil 3x se baja la version de 1600px
+                  (96 KB) para pintarla a 350. */}
+              <picture>
+                <source type="image/avif" srcSet={HERO_SET.avif} sizes={HERO_SET.sizes} />
+                <source type="image/webp" srcSet={HERO_SET.webp} sizes={HERO_SET.sizes} />
+                <img
+                  src={IMG.hero.src}
+                  alt={IMG.hero.alt}
+                  width={1355}
+                  height={746}
+                  fetchpriority="high"
+                  decoding="async"
+                  className="w-full object-cover"
+                />
+              </picture>
               {/* Linea de escaneo tecnica */}
               <div
                 aria-hidden="true"

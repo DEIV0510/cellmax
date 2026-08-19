@@ -4,6 +4,7 @@ import Section, { SectionHead } from './Section'
 import { catalogBlocks, products } from '../data/products'
 import { formatCOP, waProduct } from '../utils/whatsapp'
 import { img } from '../utils/images'
+import Imagen from './Imagen'
 import { site } from '../data/site'
 import { useIsDesktop } from '../utils/useMediaQuery'
 
@@ -92,9 +93,9 @@ function CatalogBlock({ block, onOpenProduct, defaultOpen = false }) {
           <div className="relative">
             {/* La imagen del listado solo en pantallas grandes: en movil alarga mucho */}
             <div className="mb-5 hidden overflow-hidden rounded-2xl border border-white/10 lg:block">
-              <img
-                src={image.sm}
-                alt={image.alt}
+              <Imagen
+                fuente={image}
+                pequena
                 loading="lazy"
                 decoding="async"
                 className="h-44 w-full bg-ink-950 object-cover object-top lg:h-52"

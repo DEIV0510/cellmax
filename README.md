@@ -161,8 +161,22 @@ Decisiones tomadas para que la web vaya bien en un celular de gama media:
   web no carga.
 - La imagen del hero se sirve reducida en móvil mediante `srcset`.
 
-Resultado en iPhone 13 con CPU 4x más lenta y 4G: primer pintado ~750 ms y 1.595
-nodos en el DOM (antes 2.324).
+- **Todas las imágenes salen en AVIF y WebP.** AVIF pesa un 32% menos; el
+  navegador que no lo soporte usa el WebP sin enterarse (componente ).
+- El logo se servía dos veces (una desde `public` para la pantalla de carga y
+  otra desde `assets` para el encabezado). Ahora es el mismo archivo.
+- El favicon pesaba 79 KB porque se generaba a 512px, y el navegador lo pide en
+  todas las visitas. Ahora son 96px y 5 KB.
+- Solo se piden los pesos de fuente que el CSS usa de verdad.
+
+Medido en iPhone 13 con CPU 4x más lenta y 4G:
+
+| | Antes | Ahora |
+|---|---|---|
+| Primera carga | 304 KB | **169 KB** |
+| Recorrido completo | 544 KB | **415 KB** |
+| Primer pintado | 824 ms | **700 ms** |
+| Nodos en el DOM | 2.324 | **1.628** |
 
 ## Contacto del negocio
 

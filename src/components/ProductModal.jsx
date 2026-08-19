@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { X, MessageCircle, ShieldCheck, Check, CircleAlert } from 'lucide-react'
 import { formatCOP, waProduct } from '../utils/whatsapp'
 import { img } from '../utils/images'
+import Imagen from './Imagen'
 import { lockScroll } from '../utils/useReveal'
 import { site } from '../data/site'
 
@@ -54,9 +55,8 @@ export default function ProductModal({ product, onClose }) {
 
         <div className="grid sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <div className="relative bg-ink-950">
-            <img
-              src={image.src}
-              alt={image.alt}
+            <Imagen
+              fuente={image}
               className="h-56 w-full object-cover object-top sm:h-full sm:max-h-[520px]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:to-ink-900/70" />

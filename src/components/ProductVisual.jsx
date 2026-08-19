@@ -1,4 +1,5 @@
 import { img, CM_LOGO } from '../utils/images'
+import Imagen from './Imagen'
 
 /**
  * Visual de la tarjeta de producto.
@@ -9,9 +10,9 @@ export default function ProductVisual({ product, className = '' }) {
   if (product.photo) {
     const image = img(product.image)
     return (
-      <img
-        src={image.sm}
-        alt={image.alt}
+      <Imagen
+        fuente={image}
+        pequena
         loading="lazy"
         decoding="async"
         className={`bg-ink-900 object-cover object-top transition-transform duration-500 group-hover:scale-[1.06] ${className}`}

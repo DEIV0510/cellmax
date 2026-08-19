@@ -3,6 +3,7 @@ import { X, ChevronLeft, ChevronRight, Images, Expand } from 'lucide-react'
 import Section, { SectionHead } from './Section'
 import { gallery } from '../data/gallery'
 import { img } from '../utils/images'
+import Imagen from './Imagen'
 import { lockScroll } from '../utils/useReveal'
 
 export default function Gallery() {
@@ -62,9 +63,9 @@ export default function Gallery() {
                 className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-ink-950 text-left transition-all duration-300 hover:border-electric-500/45 ${span}`}
                 aria-label={`Ampliar: ${item.caption}`}
               >
-                <img
-                  src={image.sm}
-                  alt={image.alt}
+                <Imagen
+                  fuente={image}
+                  pequena
                   loading="lazy"
                   decoding="async"
                   className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.08]"
@@ -132,9 +133,8 @@ export default function Gallery() {
           </button>
 
           <figure className="relative z-[1] max-h-full w-full max-w-4xl animate-fade-up">
-            <img
-              src={current.src}
-              alt={current.alt}
+            <Imagen
+              fuente={current}
               className="mx-auto max-h-[76vh] w-auto max-w-full rounded-2xl border border-white/10 object-contain shadow-glow"
             />
             <figcaption className="mt-4 text-center text-[13.5px] text-steel-300">
